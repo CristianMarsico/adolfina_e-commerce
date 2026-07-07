@@ -24,7 +24,10 @@ class MercadoPagoService
         try {
             return $this->preferenceClient->create($request);
         } catch (MPApiException $e) {
-            throw new \RuntimeException('Error al crear preferencia MP: ' . $e->getMessage());
+            $body = $e->getApiResponse()->getContent();
+            $status = $e->getStatusCode();
+            $detalle = $body['message'] ?? json_encode($body);
+            throw new \RuntimeException("Error MP (HTTP $status): $detalle");
         }
     }
 
@@ -42,7 +45,7 @@ class MercadoPagoService
             ];
         }
 
-        return [
+        $request = [
             'items' => $mpItems,
             'payer' => [
                 'name' => $payer['name'] ?? '',
@@ -54,10 +57,15 @@ class MercadoPagoService
                 'failure' => $backUrls['failure'],
                 'pending' => $backUrls['pending'],
             ],
-            'auto_return' => 'approved',
-            'notification_url' => $backUrls['notification'] ?? null,
             'statement_descriptor' => 'PANALERA',
         ];
+
+        $notificationUrl = $backUrls['notification'] ?? null;
+        if ($notificationUrl && !str_contains($notificationUrl, 'localhost') && !str_contains($notificationUrl, '127.0.0.1')) {
+            $request['notification_url'] = $notificationUrl;
+        }
+
+        return $request;
     }
 
     public function obtenerPago(string $paymentId): ?\MercadoPago\Resources\Payment

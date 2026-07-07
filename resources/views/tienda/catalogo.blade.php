@@ -34,18 +34,36 @@
                         </div>
                     </div>
 
+                    {{-- Etapas --}}
+                    @if($etapas->isNotEmpty())
+                    <div class="mb-6">
+                        <h4 class="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">Etapas</h4>
+                        <div class="space-y-2">
+                            @foreach($etapas as $id => $nombre)
+                                <label class="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-800 cursor-pointer">
+                                    <input type="checkbox" name="etapas[]" value="{{ $id }}"
+                                        {{ in_array((string)$id, (array)request('etapas', [])) ? 'checked' : '' }}
+                                        class="rounded border-gray-300 text-sky-500 focus:ring-sky-500"
+                                        onchange="this.form.submit()">
+                                    {{ $nombre }}
+                                </label>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
+
                     {{-- Brands --}}
                     @if($marcas->isNotEmpty())
                     <div class="mb-6">
                         <h4 class="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">Marcas</h4>
                         <div class="space-y-2">
-                            @foreach($marcas as $marca)
+                            @foreach($marcas as $id => $nombre)
                                 <label class="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-800 cursor-pointer">
-                                    <input type="checkbox" name="marcas[]" value="{{ $marca }}"
-                                        {{ in_array($marca, (array)request('marcas', [])) ? 'checked' : '' }}
+                                    <input type="checkbox" name="marcas[]" value="{{ $id }}"
+                                        {{ in_array((string)$id, (array)request('marcas', [])) ? 'checked' : '' }}
                                         class="rounded border-gray-300 text-sky-500 focus:ring-sky-500"
                                         onchange="this.form.submit()">
-                                    {{ $marca }}
+                                    {{ $nombre }}
                                 </label>
                             @endforeach
                         </div>
@@ -66,7 +84,7 @@
                     </div>
 
                     {{-- Clear filters --}}
-                    @if(request()->anyFilled(['categorias', 'marcas', 'precio_min', 'precio_max', 'q']))
+                    @if(request()->anyFilled(['categorias', 'etapas', 'marcas', 'precio_min', 'precio_max', 'q']))
                         <a href="{{ route('productos.catalogo') }}" class="block text-center text-sm text-red-500 hover:text-red-600 font-medium py-2 border-t border-gray-100 mt-4 pt-4">
                             Limpiar filtros
                         </a>
@@ -83,8 +101,11 @@
                 if (request('categorias')) {
                     $activeFilters = $activeFilters->merge($categorias->whereIn('id', request('categorias'))->pluck('nombre'));
                 }
+                if (request('etapas')) {
+                    $activeFilters = $activeFilters->merge(collect(request('etapas'))->map(fn($id) => "Etapa: " . ($etapas[$id] ?? $id)));
+                }
                 if (request('marcas')) {
-                    $activeFilters = $activeFilters->merge(collect(request('marcas'))->map(fn($m) => "Marca: $m"));
+                    $activeFilters = $activeFilters->merge(collect(request('marcas'))->map(fn($id) => "Marca: " . ($marcas[$id] ?? $id)));
                 }
                 if (request('precio_min')) {
                     $activeFilters->push("Desde: $" . number_format(request('precio_min'), 0, ',', '.'));

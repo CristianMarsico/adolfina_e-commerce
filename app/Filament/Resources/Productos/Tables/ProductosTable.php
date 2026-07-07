@@ -22,8 +22,12 @@ class ProductosTable
                 TextColumn::make('categoria.nombre')
                     ->label('Categoría')
                     ->sortable(),
-                TextColumn::make('marca')
+                TextColumn::make('marca.nombre')
+                    ->label('Marca')
                     ->searchable(),
+                TextColumn::make('etapa.nombre')
+                    ->label('Etapa')
+                    ->sortable(),
                 TextColumn::make('precio')
                     ->money('ARS')
                     ->sortable(),

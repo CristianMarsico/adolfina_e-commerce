@@ -18,7 +18,10 @@ class PedidoForm
                     ->relationship('user', 'name')
                     ->searchable()
                     ->preload()
-                    ->required(),
+                    ->placeholder('Invitado'),
+                TextInput::make('email')
+                    ->label('Email')
+                    ->email(),
                 TextInput::make('total')
                     ->required()
                     ->numeric()

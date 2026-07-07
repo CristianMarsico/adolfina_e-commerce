@@ -56,10 +56,24 @@ class ImagenesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                CreateAction::make(),
+                CreateAction::make()
+                    ->mutateDataUsing(function (array $data, $livewire): array {
+                        if ($data['es_principal'] ?? false) {
+                            $livewire->getOwnerRecord()->imagenes()->update(['es_principal' => false]);
+                        }
+                        return $data;
+                    }),
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->mutateDataUsing(function (array $data, $livewire, $record): array {
+                        if ($data['es_principal'] ?? false) {
+                            $livewire->getOwnerRecord()->imagenes()
+                                ->where('id', '!=', $record->id)
+                                ->update(['es_principal' => false]);
+                        }
+                        return $data;
+                    }),
                 DeleteAction::make(),
             ])
             ->toolbarActions([

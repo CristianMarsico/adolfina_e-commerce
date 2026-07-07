@@ -23,6 +23,9 @@ class PedidosTable
                     ->label('Usuario')
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('email')
+                    ->label('Email')
+                    ->searchable(),
                 TextColumn::make('total')
                     ->money('ARS')
                     ->sortable(),

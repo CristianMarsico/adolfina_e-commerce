@@ -14,7 +14,7 @@ Route::get('/', [ProductoController::class, 'index'])->name('home');
 Route::get('/contacto', [ContactController::class, 'index'])->name('contacto.index');
 Route::post('/contacto', [ContactController::class, 'enviar'])->name('contacto.enviar');
 Route::get('/productos', [ProductoController::class, 'catalogo'])->name('productos.catalogo');
-Route::get('/productos/{producto:slug}', [ProductoController::class, 'show'])->name('productos.show');
+Route::get('/productos/{producto}', [ProductoController::class, 'show'])->name('productos.show');
 Route::get('/categoria/{categoria}', [ProductoController::class, 'porCategoria'])->name('productos.categoria');
 
 // Cart routes
@@ -23,14 +23,13 @@ Route::post('/carrito', [CartController::class, 'store'])->name('cart.store');
 Route::patch('/carrito/{key}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/carrito/{key}', [CartController::class, 'destroy'])->name('cart.destroy');
 
-// Checkout routes (auth required)
-Route::middleware('auth')->group(function () {
-    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/checkout/procesar', [CheckoutController::class, 'procesar'])->name('checkout.procesar');
-    Route::get('/checkout/{pedido}/exito', [CheckoutController::class, 'exito'])->name('checkout.exito');
-    Route::get('/checkout/{pedido}/falla', [CheckoutController::class, 'falla'])->name('checkout.falla');
-    Route::get('/checkout/{pedido}/pendiente', [CheckoutController::class, 'pendiente'])->name('checkout.pendiente');
-});
+// Checkout routes (sin auth — invitados también pueden comprar)
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout/procesar', [CheckoutController::class, 'procesar'])->name('checkout.procesar');
+
+Route::get('/checkout/{pedido}/exito', [CheckoutController::class, 'exito'])->name('checkout.exito');
+Route::get('/checkout/{pedido}/falla', [CheckoutController::class, 'falla'])->name('checkout.falla');
+Route::get('/checkout/{pedido}/pendiente', [CheckoutController::class, 'pendiente'])->name('checkout.pendiente');
 
 // Webhooks (no auth)
 Route::post('/webhook/mp', [WebhookController::class, 'mp'])->name('webhook.mp');

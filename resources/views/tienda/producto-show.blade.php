@@ -17,14 +17,14 @@
 
     <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
         {{-- Left: Images --}}
-        <div>
+        <div x-data="{ selectedImage: '{{ $producto->imagenes->isNotEmpty() ? asset('storage/' . (($producto->imagenes->firstWhere('es_principal', true) ?? $producto->imagenes->first())->path)) : '' }}' }">
             {{-- Main image --}}
             @php
                 $mainImage = $producto->imagenes->firstWhere('es_principal', true) ?? $producto->imagenes->first();
             @endphp
             <div class="bg-gray-100 rounded-2xl overflow-hidden aspect-square flex items-center justify-center mb-4">
-                @if($mainImage)
-                    <img src="{{ asset('storage/' . $mainImage->path) }}" alt="{{ $producto->nombre }}" class="w-full h-full object-cover">
+                @if($producto->imagenes->isNotEmpty())
+                    <img :src="selectedImage" src="{{ asset('storage/' . $mainImage->path) }}" alt="{{ $producto->nombre }}" class="w-full h-full object-cover">
                 @else
                     <div class="text-center text-gray-400">
                         <svg class="w-20 h-20 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,7 +39,9 @@
             @if($producto->imagenes->count() > 1)
                 <div class="flex gap-3 overflow-x-auto pb-2">
                     @foreach($producto->imagenes as $imagen)
-                        <div class="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden shrink-0 cursor-pointer border-2 {{ $imagen->es_principal ? 'border-sky-500' : 'border-transparent' }} hover:border-sky-300 transition-colors">
+                        <div @click="selectedImage = '{{ asset('storage/' . $imagen->path) }}'"
+                             :class="selectedImage === '{{ asset('storage/' . $imagen->path) }}' ? 'border-sky-500' : 'border-transparent'"
+                             class="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden shrink-0 cursor-pointer border-2 hover:border-sky-300 transition-colors">
                             <img src="{{ asset('storage/' . $imagen->path) }}" alt="" class="w-full h-full object-cover">
                         </div>
                     @endforeach
@@ -57,8 +59,8 @@
 
             <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">{{ $producto->nombre }}</h1>
 
-            @if($producto->marca)
-                <p class="text-gray-500 text-sm mb-4">Marca: <span class="font-medium text-gray-700">{{ $producto->marca }}</span></p>
+            @if($producto->marca?->nombre)
+                <p class="text-gray-500 text-sm mb-4">Marca: <span class="font-medium text-gray-700">{{ $producto->marca->nombre }}</span></p>
             @endif
 
             {{-- Price --}}
@@ -68,10 +70,10 @@
                         <span class="text-3xl font-bold text-pink-600">${{ number_format($producto->precio_oferta, 0, ',', '.') }}</span>
                         <span class="text-lg text-gray-400 line-through">${{ number_format($producto->precio, 0, ',', '.') }}</span>
                     </div>
-                    @if($producto->descuento->tipo_descuento === 'porcentaje')
-                        <span class="inline-block bg-pink-100 text-pink-700 text-xs font-bold px-2.5 py-1 rounded-full">-{{ $producto->descuento->valor_descuento }}%</span>
+                    @if($producto->descuento?->tipo_descuento === 'porcentaje')
+                        <span class="inline-block bg-pink-100 text-pink-700 text-xs font-bold px-2.5 py-1 rounded-full">-{{ $producto->descuento?->valor_descuento }}%</span>
                     @endif
-                    <p class="text-xs text-gray-500 mt-1">Oferta válida hasta {{ $producto->descuento->fecha_fin->format('d/m/Y') }}</p>
+                    <p class="text-xs text-gray-500 mt-1">Oferta válida hasta {{ $producto->descuento?->fecha_fin?->format('d/m/Y') }}</p>
                 @else
                     <span class="text-3xl font-bold text-gray-900">${{ number_format($producto->precio, 0, ',', '.') }}</span>
                 @endif
@@ -180,7 +182,7 @@
                         <tbody>
                             <tr class="border-b border-gray-100">
                                 <td class="py-2 font-medium text-gray-700 w-1/3">Marca</td>
-                                <td class="py-2">{{ $producto->marca ?? '-' }}</td>
+                                <td class="py-2">{{ $producto->marca?->nombre ?? '-' }}</td>
                             </tr>
                             <tr class="border-b border-gray-100">
                                 <td class="py-2 font-medium text-gray-700">Edad / Talla</td>

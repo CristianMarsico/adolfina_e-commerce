@@ -3,37 +3,36 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Producto extends Model
 {
     protected $fillable = [
         'categoria_id',
+        'marca_id',
+        'etapa_id',
         'nombre',
-        'slug',
         'descripcion',
-        'marca',
         'precio',
         'stock',
         'edad_talla',
         'activo',
         'destacado',
+        'tiene_talles',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($producto) {
-            if (empty($producto->slug)) {
-                $producto->slug = Str::slug($producto->nombre);
-            }
-        });
-    }
 
     public function categoria()
     {
         return $this->belongsTo(Categoria::class);
+    }
+
+    public function marca()
+    {
+        return $this->belongsTo(Marca::class);
+    }
+
+    public function etapa()
+    {
+        return $this->belongsTo(Etapa::class);
     }
 
     public function imagenes()
@@ -103,5 +102,15 @@ class Producto extends Model
             ->first();
 
         return $oferta;
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'precio' => 'decimal:2',
+            'activo' => 'boolean',
+            'destacado' => 'boolean',
+            'tiene_talles' => 'boolean',
+        ];
     }
 }

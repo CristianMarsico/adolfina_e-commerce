@@ -15,8 +15,18 @@
 
         <div class="md:col-span-3 space-y-6">
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                <h2 class="text-lg font-semibold text-gray-800 mb-4">Dirección de envío</h2>
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">Información personal</h2>
                 <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nombre completo *</label>
+                        <input type="text" name="nombre" value="{{ old('nombre', $user->name ?? '') }}" required class="w-full rounded-lg border-gray-300 focus:border-sky-500 focus:ring-sky-500 text-sm">
+                        @error('nombre') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico *</label>
+                        <input type="email" name="email" value="{{ old('email', $user->email ?? '') }}" required class="w-full rounded-lg border-gray-300 focus:border-sky-500 focus:ring-sky-500 text-sm">
+                        @error('email') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                    </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Dirección *</label>
                         <input type="text" name="direccion" value="{{ old('direccion', $user->direccion ?? '') }}" required class="w-full rounded-lg border-gray-300 focus:border-sky-500 focus:ring-sky-500 text-sm">

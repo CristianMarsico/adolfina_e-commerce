@@ -17,13 +17,19 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             CategoriaSeeder::class,
+            MarcaSeeder::class,
+            EtapaSeeder::class,
             ProductoSeeder::class,
+            ConfiguracionSeeder::class,
         ]);
 
-        User::create([
-            'name' => 'Admin',
-            'email' => 'admin@panalera.com',
-            'password' => bcrypt('admin123'),
-        ]);
+        User::updateOrCreate(
+            ['email' => 'admin@panalera.com'],
+            [
+                'name' => 'Admin',
+                'password' => bcrypt('admin123'),
+                'is_admin' => true,
+            ]
+        );
     }
 }

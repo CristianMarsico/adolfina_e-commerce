@@ -8,6 +8,7 @@ class Pedido extends Model
 {
     protected $fillable = [
         'user_id',
+        'email',
         'total',
         'subtotal',
         'descuento',
@@ -17,6 +18,7 @@ class Pedido extends Model
         'codigo_postal',
         'telefono',
         'observaciones',
+        'token',
         'mp_preference_id',
         'mp_payment_id',
         'mp_status',
@@ -45,5 +47,10 @@ class Pedido extends Model
     public function scopeOfUser($query, $userId)
     {
         return $query->where('user_id', $userId);
+    }
+
+    public function getCompradorAttribute(): string
+    {
+        return $this->user?->name ?? $this->email ?? 'Invitado';
     }
 }

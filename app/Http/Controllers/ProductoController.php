@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Models\Etapa;
+use App\Models\Marca;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 
@@ -34,14 +36,15 @@ class ProductoController extends Controller
 
     public function catalogo(Request $request)
     {
-        $query = Producto::where('activo', true)->with('imagenPrincipal', 'categoria', 'promociones');
+        $query = Producto::where('activo', true)->with('imagenPrincipal', 'categoria', 'marca', 'promociones');
 
         if ($request->filled('q')) {
             $search = $request->q;
-            $query->where(function ($q) use ($search) {
-                $q->where('nombre', 'like', "%{$search}%")
-                  ->orWhere('descripcion', 'like', "%{$search}%")
-                  ->orWhere('marca', 'like', "%{$search}%");
+            $query->where(function ($queryBuilder) use ($search) {
+                $queryBuilder->whereRaw('nombre ILIKE ?', ["%{$search}%"])
+                  ->orWhereRaw('descripcion ILIKE ?', ["%{$search}%"])
+                  ->orWhereHas('marca', fn($marcaQuery) => $marcaQuery->whereRaw('nombre ILIKE ?', ["%{$search}%"]))
+                  ->orWhereHas('categoria', fn($catQuery) => $catQuery->whereRaw('nombre ILIKE ?', ["%{$search}%"]));
             });
         }
 
@@ -50,7 +53,11 @@ class ProductoController extends Controller
         }
 
         if ($request->filled('marcas')) {
-            $query->whereIn('marca', $request->marcas);
+            $query->whereIn('marca_id', $request->marcas);
+        }
+
+        if ($request->filled('etapas')) {
+            $query->whereIn('etapa_id', $request->etapas);
         }
 
         if ($request->filled('precio_min')) {
@@ -80,9 +87,10 @@ class ProductoController extends Controller
         $productos = $query->paginate(12)->withQueryString();
 
         $categorias = Categoria::where('activo', true)->get();
-        $marcas = Producto::where('activo', true)->distinct()->pluck('marca')->filter();
+        $marcas = Marca::orderBy('nombre')->pluck('nombre', 'id');
+        $etapas = Etapa::where('activo', true)->orderBy('nombre')->pluck('nombre', 'id');
 
-        return view('tienda.catalogo', compact('productos', 'categorias', 'marcas'));
+        return view('tienda.catalogo', compact('productos', 'categorias', 'marcas', 'etapas'));
     }
 
     public function show(Producto $producto)

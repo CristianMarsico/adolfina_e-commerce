@@ -7,7 +7,6 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
-use Illuminate\Support\Str;
 
 class ProductoForm
 {
@@ -21,19 +20,23 @@ class ProductoForm
                     ->required()
                     ->searchable()
                     ->preload(),
+                Select::make('marca_id')
+                    ->label('Marca')
+                    ->relationship('marca', 'nombre')
+                    ->searchable()
+                    ->preload()
+                    ->nullable(),
+                Select::make('etapa_id')
+                    ->label('Etapa')
+                    ->relationship('etapa', 'nombre')
+                    ->searchable()
+                    ->preload()
+                    ->nullable(),
                 TextInput::make('nombre')
                     ->required()
-                    ->maxLength(255)
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(fn ($state, $set) => $set('slug', Str::slug($state))),
-                TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255)
-                    ->unique(ignoreRecord: true),
+                    ->maxLength(255),
                 RichEditor::make('descripcion')
                     ->columnSpanFull(),
-                TextInput::make('marca')
-                    ->maxLength(255),
                 TextInput::make('precio')
                     ->required()
                     ->numeric()
@@ -49,6 +52,10 @@ class ProductoForm
                     ->required(),
                 Toggle::make('destacado')
                     ->required(),
+                Toggle::make('tiene_talles')
+                    ->label('Tiene talles')
+                    ->helperText('Desactivar si el producto no tiene talles (ej: juguetes, shampoo)')
+                    ->default(true),
             ]);
     }
 }

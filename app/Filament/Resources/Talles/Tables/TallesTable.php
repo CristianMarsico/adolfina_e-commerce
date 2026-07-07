@@ -20,8 +20,6 @@ class TallesTable
                     ->sortable(),
                 TextColumn::make('descripcion')
                     ->limit(50),
-                TextColumn::make('orden')
-                    ->sortable(),
                 ToggleColumn::make('activo'),
             ])
             ->filters([

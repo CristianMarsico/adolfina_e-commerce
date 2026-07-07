@@ -11,7 +11,8 @@ class EnsureIsAdmin
     public function handle(Request $request, Closure $next): Response
     {
         if (!$request->user()?->is_admin) {
-            abort(403, 'Solo los administradores pueden acceder al panel.');
+            return redirect()->route('home')
+                ->with('error', 'No tenés permisos de administrador.');
         }
 
         return $next($request);

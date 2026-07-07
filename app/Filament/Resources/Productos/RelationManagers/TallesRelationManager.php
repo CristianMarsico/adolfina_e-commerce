@@ -18,6 +18,7 @@ class TallesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->badge(fn () => $this->getOwnerRecord()->talles()->count())
             ->columns([
                 TextColumn::make('nombre'),
                 TextColumn::make('pivot.stock')

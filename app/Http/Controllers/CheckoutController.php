@@ -7,12 +7,49 @@ use App\Services\MercadoPagoService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
 {
+    private function getCart()
+    {
+        if (Auth::check() && !Auth::user()->is_admin) {
+            $cartItems = \App\Models\CartItem::where('user_id', Auth::id())->get();
+            $cart = [];
+
+            foreach ($cartItems as $item) {
+                $producto = $item->producto;
+                $key = $producto->id . '-' . ($item->atributo_id ?? '0');
+                $precio = (float) $producto->precio;
+                $atributoNombre = null;
+
+                if ($item->atributo_id) {
+                    $atributo = $producto->atributos()->find($item->atributo_id);
+                    if ($atributo) {
+                        $precio += (float) $atributo->precio_adicional;
+                        $atributoNombre = $atributo->valor;
+                    }
+                }
+
+                $cart[$key] = [
+                    'producto_id' => $producto->id,
+                    'nombre' => $producto->nombre,
+                    'precio' => $precio,
+                    'cantidad' => $item->cantidad,
+                    'atributo_id' => $item->atributo_id,
+                    'atributo_nombre' => $atributoNombre,
+                ];
+            }
+
+            return $cart;
+        }
+
+        return session()->get('cart', []);
+    }
+
     public function index()
     {
-        $cart = session()->get('cart', []);
+        $cart = $this->getCart();
         if (empty($cart)) {
             return redirect()->route('cart.index')->with('error', 'Tu carrito está vacío.');
         }
@@ -40,6 +77,8 @@ class CheckoutController extends Controller
     public function procesar(Request $request, MercadoPagoService $mp)
     {
         $request->validate([
+            'nombre' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
             'direccion' => 'required|string|max:500',
             'ciudad' => 'required|string|max:255',
             'codigo_postal' => 'required|string|max:20',
@@ -47,12 +86,11 @@ class CheckoutController extends Controller
             'observaciones' => 'nullable|string|max:1000',
         ]);
 
-        $cart = session()->get('cart', []);
+        $cart = $this->getCart();
         if (empty($cart)) {
             return redirect()->route('cart.index')->with('error', 'Tu carrito está vacío.');
         }
 
-        $user = Auth::user();
         $productos = \App\Models\Producto::whereIn('id', collect($cart)->pluck('producto_id'))->get()->keyBy('id');
 
         DB::beginTransaction();
@@ -93,8 +131,11 @@ class CheckoutController extends Controller
 
             $total = $subtotal;
 
+            $token = Str::random(32);
+
             $pedido = Pedido::create([
-                'user_id' => $user->id,
+                'user_id' => Auth::check() && !Auth::user()->is_admin ? Auth::id() : null,
+                'email' => $request->email,
                 'total' => $total,
                 'subtotal' => $subtotal + $totalDescuento,
                 'descuento' => $totalDescuento,
@@ -104,6 +145,7 @@ class CheckoutController extends Controller
                 'codigo_postal' => $request->codigo_postal,
                 'telefono' => $request->telefono,
                 'observaciones' => $request->observaciones,
+                'token' => $token,
             ]);
 
             foreach ($itemsPedido as $item) {
@@ -112,51 +154,66 @@ class CheckoutController extends Controller
 
             $preferencia = $mp->crearPreferencia(
                 $mpItems,
-                ['name' => $user->name, 'email' => $user->email],
+                ['name' => $request->nombre, 'email' => $request->email],
                 (string) $pedido->id,
                 [
-                    'success' => route('checkout.exito', $pedido),
-                    'failure' => route('checkout.falla', $pedido),
-                    'pending' => route('checkout.pendiente', $pedido),
+                    'success' => route('checkout.exito', [$pedido, 'token' => $token]),
+                    'failure' => route('checkout.falla', [$pedido, 'token' => $token]),
+                    'pending' => route('checkout.pendiente', [$pedido, 'token' => $token]),
                     'notification' => route('webhook.mp'),
                 ]
             );
 
             $pedido->update(['mp_preference_id' => $preferencia->id]);
 
-            session()->forget('cart');
+            if (Auth::check() && !Auth::user()->is_admin) {
+                \App\Models\CartItem::where('user_id', Auth::id())->delete();
+            } else {
+                session()->forget('cart');
+            }
 
             DB::commit();
 
-            return redirect($preferencia->init_point);
+            $pedido->load('items');
+            return view('tienda.pagando', [
+                'pedido' => $pedido,
+                'initPoint' => $preferencia->init_point,
+            ]);
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('checkout.index')->with('error', 'Error al procesar el pago: ' . $e->getMessage());
         }
     }
 
-    public function exito(Pedido $pedido)
+    private function autorizarPedido(Pedido $pedido, Request $request): bool
     {
-        if ($pedido->user_id !== Auth::id()) {
-            abort(403);
+        if ($request->token && $pedido->token === $request->token) {
+            return true;
         }
+
+        if (Auth::check() && $pedido->user_id === Auth::id()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function exito(Request $request, Pedido $pedido)
+    {
+        abort_unless($this->autorizarPedido($pedido, $request), 403);
         $pedido->load('items.producto');
         return view('tienda.pedido-exito', compact('pedido'));
     }
 
-    public function falla(Pedido $pedido)
+    public function falla(Request $request, Pedido $pedido)
     {
-        if ($pedido->user_id !== Auth::id()) {
-            abort(403);
-        }
+        abort_unless($this->autorizarPedido($pedido, $request), 403);
         return view('tienda.pedido-falla', compact('pedido'));
     }
 
-    public function pendiente(Pedido $pedido)
+    public function pendiente(Request $request, Pedido $pedido)
     {
-        if ($pedido->user_id !== Auth::id()) {
-            abort(403);
-        }
+        abort_unless($this->autorizarPedido($pedido, $request), 403);
         return view('tienda.pedido-pendiente', compact('pedido'));
     }
 }

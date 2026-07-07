@@ -1,5 +1,13 @@
-<div x-data="productCard({{ $producto->id }})" class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
-    <a href="{{ route('productos.show', $producto->slug) }}" class="block relative">
+<div x-data="productCard({
+    id: {{ $producto->id }},
+    precio: {{ $producto->precio }},
+    precioOferta: {{ $producto->precio_oferta ?? 'null' }},
+    tieneDescuento: {{ $producto->descuento ? 'true' : 'false' }},
+    tipoDescuento: '{{ addslashes($producto->descuento?->tipo_descuento ?? '') }}',
+    valorDescuento: {{ $producto->descuento?->valor_descuento ?? 'null' }},
+    stock: {{ $producto->stock ?? 0 }}
+})" class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
+    <a href="{{ route('productos.show', $producto) }}" class="block relative">
         <div class="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
             @if($producto->imagenPrincipal)
                 <img src="{{ asset('storage/' . $producto->imagenPrincipal->path) }}" alt="{{ $producto->nombre }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
@@ -12,9 +20,9 @@
                 </div>
             @endif
         </div>
-        <template x-if="descuento">
+        <template x-if="tieneDescuento">
             <div class="absolute top-2 left-2 bg-pink-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
-                <span x-text="descuento.tipo === 'porcentaje' ? '-' + descuento.valor + '%' : 'OFERTA'"></span>
+                <span x-text="tipoDescuento === 'porcentaje' ? '-' + valorDescuento + '%' : 'OFERTA'"></span>
             </div>
         </template>
         <template x-if="stock < 1">
@@ -28,10 +36,10 @@
             <span class="text-xs text-sky-600 font-medium">{{ $producto->categoria->nombre }}</span>
         @endif
         <h3 class="font-semibold text-gray-800 mt-1 group-hover:text-sky-600 transition-colors line-clamp-2">
-            <a href="{{ route('productos.show', $producto->slug) }}">{{ $producto->nombre }}</a>
+            <a href="{{ route('productos.show', $producto) }}">{{ $producto->nombre }}</a>
         </h3>
-        @if($producto->marca)
-            <p class="text-sm text-gray-500 mt-1">{{ $producto->marca }}</p>
+        @if($producto->marca?->nombre)
+            <p class="text-sm text-gray-500 mt-1">{{ $producto->marca->nombre }}</p>
         @endif
         <div class="mt-auto pt-3">
             <div class="flex items-center gap-2">

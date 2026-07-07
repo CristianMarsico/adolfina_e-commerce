@@ -9,7 +9,6 @@ class Talle extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
-        'orden',
         'activo',
     ];
 
@@ -17,17 +16,7 @@ class Talle extends Model
     {
         return [
             'activo' => 'boolean',
-            'orden' => 'integer',
         ];
-    }
-
-    protected static function booted(): void
-    {
-        static::creating(function (Talle $talle) {
-            if ($talle->orden === null) {
-                $talle->orden = static::max('orden') + 1;
-            }
-        });
     }
 
     public function productos()

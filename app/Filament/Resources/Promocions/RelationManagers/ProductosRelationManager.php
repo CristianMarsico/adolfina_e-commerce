@@ -4,11 +4,11 @@ namespace App\Filament\Resources\Promocions\RelationManagers;
 
 use Filament\Actions\AttachAction;
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
+
 use Filament\Actions\DetachAction;
 use Filament\Actions\DetachBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -31,10 +31,14 @@ class ProductosRelationManager extends RelationManager
                     ->numeric(),
                 TextInput::make('nombre')
                     ->required(),
-                TextInput::make('slug'),
                 Textarea::make('descripcion')
                     ->columnSpanFull(),
-                TextInput::make('marca'),
+                Select::make('marca_id')
+                    ->label('Marca')
+                    ->relationship('marca', 'nombre')
+                    ->searchable()
+                    ->preload()
+                    ->nullable(),
                 TextInput::make('precio')
                     ->required()
                     ->numeric(),
@@ -62,9 +66,8 @@ class ProductosRelationManager extends RelationManager
                     ->sortable(),
                 TextColumn::make('nombre')
                     ->searchable(),
-                TextColumn::make('slug')
-                    ->searchable(),
-                TextColumn::make('marca')
+                TextColumn::make('marca.nombre')
+                    ->label('Marca')
                     ->searchable(),
                 TextColumn::make('precio')
                     ->numeric()
@@ -92,17 +95,16 @@ class ProductosRelationManager extends RelationManager
                 AttachAction::make()
                     ->preloadRecordSelect()
                     ->multiple()
+                    ->recordSelectSearchColumns(['nombre'])
                     ->label('Vincular producto existente'),
             ])
             ->recordActions([
                 EditAction::make(),
                 DetachAction::make(),
-                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
                     DetachBulkAction::make(),
-                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
