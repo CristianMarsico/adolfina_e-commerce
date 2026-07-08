@@ -1,5 +1,11 @@
 @php
-    $pedidos = \App\Models\Pedido::ofUser(Auth::id())->latest()->get();
+    $estado = request('estado', '');
+    $orden = request('orden', 'desc');
+
+    $pedidos = \App\Models\Pedido::ofUser(Auth::id())
+        ->when($estado, fn($q, $v) => $q->where('estado', $v))
+        ->orderBy('created_at', $orden === 'asc' ? 'asc' : 'desc')
+        ->get();
 @endphp
 
 <x-app-layout>
@@ -18,7 +24,23 @@
             {{-- Pedidos --}}
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Mis pedidos</h3>
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800">Mis pedidos</h3>
+
+                        <form method="GET" class="flex flex-wrap items-center gap-3">
+                            <select name="estado" onchange="this.form.submit()" class="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="">Todos los estados</option>
+                                <option value="pendiente" @selected(request('estado') === 'pendiente')>Pendiente</option>
+                                <option value="pagado" @selected(request('estado') === 'pagado')>Pagado</option>
+                                <option value="fallado" @selected(request('estado') === 'fallado')>Fallado</option>
+                            </select>
+
+                            <select name="orden" onchange="this.form.submit()" class="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="desc" @selected(request('orden', 'desc') === 'desc')>Más recientes</option>
+                                <option value="asc" @selected(request('orden') === 'asc')>Más antiguos</option>
+                            </select>
+                        </form>
+                    </div>
 
                     @if($pedidos->isEmpty())
                         <p class="text-gray-500 text-sm">No tenés pedidos todavía.</p>

@@ -19,9 +19,7 @@
                 </a>
             </div>
             <div class="hidden md:flex justify-center">
-                <svg class="w-64 h-64 text-white/20" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/>
-                </svg>
+                <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=1200&q=80" alt="Productos para bebé" class="w-64 h-64 object-cover rounded-2xl shadow-xl">
             </div>
         </div>
     </div>
