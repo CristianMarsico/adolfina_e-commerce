@@ -31,6 +31,9 @@ Route::get('/checkout/{pedido}/exito', [CheckoutController::class, 'exito'])->na
 Route::get('/checkout/{pedido}/falla', [CheckoutController::class, 'falla'])->name('checkout.falla');
 Route::get('/checkout/{pedido}/pendiente', [CheckoutController::class, 'pendiente'])->name('checkout.pendiente');
 
+// Test payment simulation (local only)
+Route::get('/checkout/{pedido}/test-pagar', [CheckoutController::class, 'testPagar'])->name('checkout.test-pagar');
+
 // Webhooks (no auth)
 Route::post('/webhook/mp', [WebhookController::class, 'mp'])->name('webhook.mp');
 

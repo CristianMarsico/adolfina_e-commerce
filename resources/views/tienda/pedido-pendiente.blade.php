@@ -13,7 +13,7 @@
         <h1 class="text-2xl font-bold text-gray-800 mb-2">Pago pendiente</h1>
         <p class="text-gray-500 mb-6">Estamos esperando la confirmación del pago. Te avisaremos cuando se acredite.</p>
         <a href="{{ route('productos.catalogo') }}" class="inline-block bg-sky-500 hover:bg-sky-600 text-white font-medium px-6 py-3 rounded-full transition-colors">
-            Seguir comprando
+            Volver a la tienda
         </a>
     </div>
 </div>

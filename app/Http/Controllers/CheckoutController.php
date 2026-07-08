@@ -152,6 +152,25 @@ class CheckoutController extends Controller
                 $pedido->items()->create($item);
             }
 
+            if ($mp->isTestMode()) {
+                $pedido->update([
+                    'mp_preference_id' => 'TEST_' . $pedido->id . '_' . time(),
+                    'estado' => 'pagado',
+                    'mp_payment_id' => 'TEST_' . $pedido->id,
+                    'mp_status' => 'approved',
+                ]);
+
+                if (Auth::check() && !Auth::user()->is_admin) {
+                    \App\Models\CartItem::where('user_id', Auth::id())->delete();
+                } else {
+                    session()->forget('cart');
+                }
+
+                DB::commit();
+
+                return redirect()->route('checkout.exito', [$pedido, 'token' => $token]);
+            }
+
             $preferencia = $mp->crearPreferencia(
                 $mpItems,
                 ['name' => $request->nombre, 'email' => $request->email],
@@ -175,6 +194,7 @@ class CheckoutController extends Controller
             DB::commit();
 
             $pedido->load('items');
+
             return view('tienda.pagando', [
                 'pedido' => $pedido,
                 'initPoint' => $preferencia->init_point,
@@ -183,6 +203,17 @@ class CheckoutController extends Controller
             DB::rollBack();
             return redirect()->route('checkout.index')->with('error', 'Error al procesar el pago: ' . $e->getMessage());
         }
+    }
+
+    public function testPagar(Pedido $pedido)
+    {
+        $pedido->update([
+            'estado' => 'pagado',
+            'mp_payment_id' => 'TEST_' . $pedido->id,
+            'mp_status' => 'approved',
+        ]);
+
+        return redirect()->route('checkout.exito', [$pedido, 'token' => $pedido->token]);
     }
 
     private function autorizarPedido(Pedido $pedido, Request $request): bool

@@ -10,7 +10,7 @@
         <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm">{{ session('error') }}</div>
     @endif
 
-    <form action="{{ route('checkout.procesar') }}" method="POST" class="grid md:grid-cols-5 gap-8">
+    <form action="{{ route('checkout.procesar') }}" method="POST" data-turbo="false" class="grid md:grid-cols-5 gap-8">
         @csrf
 
         <div class="md:col-span-3 space-y-6">

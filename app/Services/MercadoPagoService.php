@@ -10,15 +10,31 @@ use MercadoPago\Resources\Preference;
 class MercadoPagoService
 {
     private PreferenceClient $preferenceClient;
+    private bool $testMode;
 
     public function __construct()
     {
+        $this->testMode = config('services.mercadopago.sandbox', false);
+
         MercadoPagoConfig::setAccessToken(config('services.mercadopago.access_token'));
         $this->preferenceClient = new PreferenceClient();
     }
 
-    public function crearPreferencia(array $items, array $payer, string $externalReference, array $backUrls): Preference
+    public function isTestMode(): bool
     {
+        return $this->testMode;
+    }
+
+    public function crearPreferencia(array $items, array $payer, string $externalReference, array $backUrls): Preference|array
+    {
+        if ($this->testMode) {
+            return [
+                'id' => 'TEST_' . $externalReference . '_' . time(),
+                'init_point' => route('checkout.test-pagar', ['pedido' => $externalReference]),
+                'sandbox_init_point' => route('checkout.test-pagar', ['pedido' => $externalReference]),
+            ];
+        }
+
         $request = $this->buildPreferenceRequest($items, $payer, $externalReference, $backUrls);
 
         try {
@@ -70,6 +86,10 @@ class MercadoPagoService
 
     public function obtenerPago(string $paymentId): ?\MercadoPago\Resources\Payment
     {
+        if ($this->testMode) {
+            return null;
+        }
+
         try {
             $client = new \MercadoPago\Client\Payment\PaymentClient();
             return $client->get((int) $paymentId);

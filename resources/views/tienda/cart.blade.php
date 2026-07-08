@@ -90,7 +90,7 @@
                 <span class="text-2xl font-bold text-gray-900">${{ number_format($total, 0, ',', '.') }}</span>
             </div>
             <div class="flex flex-col gap-3">
-                <a href="{{ auth()->check() ? route('checkout.index') : route('login', ['redirect' => route('checkout.index')]) }}" class="w-full inline-flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-6 rounded-full transition-colors">
+                <a href="{{ route('checkout.index') }}" data-turbo="false" class="w-full inline-flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-6 rounded-full transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/>
                     </svg>

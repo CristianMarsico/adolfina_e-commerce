@@ -20,7 +20,7 @@
         </div>
 
         <a href="{{ route('productos.catalogo') }}" class="inline-block bg-sky-500 hover:bg-sky-600 text-white font-medium px-6 py-3 rounded-full transition-colors">
-            Seguir comprando
+            Volver a la tienda
         </a>
     </div>
 </div>

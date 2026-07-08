@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="turbo-cache-control" content="no-cache">
     <title>@yield('title', config('app.name', $configuracion->nombre_negocio ?? 'Pañalera')) | {{ $configuracion->nombre_negocio ?? 'Pañalera' }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
@@ -54,6 +55,10 @@
                                 <a href="/admin" class="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-sky-600 transition-colors">Panel admin</a>
                             @else
                                 <a href="{{ route('dashboard') }}" class="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-sky-600 transition-colors">Mi cuenta</a>
+                                <form method="POST" action="{{ route('logout') }}" class="hidden sm:inline-block">
+                                    @csrf
+                                    <button type="submit" class="text-sm font-medium text-gray-500 hover:text-red-500 transition-colors">Cerrar sesión</button>
+                                </form>
                             @endif
                         @else
                             <a href="{{ route('login') }}" class="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-sky-600 transition-colors">Ingresar</a>
@@ -137,6 +142,10 @@
                             <a href="/admin" class="block px-3 py-2 text-sm font-medium text-gray-600 hover:text-sky-600 hover:bg-sky-50 rounded-lg">Panel admin</a>
                         @else
                             <a href="{{ route('dashboard') }}" class="block px-3 py-2 text-sm font-medium text-gray-600 hover:text-sky-600 hover:bg-sky-50 rounded-lg">Mi cuenta</a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="block w-full text-left px-3 py-2 text-sm font-medium text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg">Cerrar sesión</button>
+                            </form>
                         @endif
                     @else
                         <a href="{{ route('login') }}" class="block px-3 py-2 text-sm font-medium text-gray-600 hover:text-sky-600 hover:bg-sky-50 rounded-lg">Ingresar</a>
