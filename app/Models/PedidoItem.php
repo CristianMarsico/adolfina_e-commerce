@@ -14,6 +14,7 @@ class PedidoItem extends Model
         'precio_unitario',
         'subtotal',
         'atributo_info',
+        'atributo_id',
     ];
 
     protected function casts(): array

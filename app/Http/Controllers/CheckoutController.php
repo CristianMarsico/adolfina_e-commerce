@@ -94,7 +94,31 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index')->with('error', 'Tu carrito está vacío.');
         }
 
-        $productos = \App\Models\Producto::whereIn('id', collect($cart)->pluck('producto_id'))->get()->keyBy('id');
+        $productos = \App\Models\Producto::whereIn('id', collect($cart)->pluck('producto_id'))
+            ->with('atributos')
+            ->get()
+            ->keyBy('id');
+
+        foreach ($cart as $item) {
+            $producto = $productos->get($item['producto_id']);
+            if (!$producto || !$producto->activo) {
+                return redirect()->route('cart.index')->with('error', "Producto no disponible: {$item['nombre']}");
+            }
+
+            $qty = (int) $item['cantidad'];
+
+            if ($item['atributo_id']) {
+                $atributo = $producto->atributos->firstWhere('id', $item['atributo_id']);
+                if (!$atributo) {
+                    return redirect()->route('cart.index')->with('error', "Variante no disponible: {$item['nombre']}");
+                }
+                if ($atributo->stock !== null && $qty > (int) $atributo->stock) {
+                    return redirect()->route('cart.index')->with('error', "Stock insuficiente para {$item['nombre']} ({$atributo->valor}). Disponible: {$atributo->stock}");
+                }
+            } elseif ($producto->stock !== null && $qty > (int) $producto->stock) {
+                return redirect()->route('cart.index')->with('error', "Stock insuficiente para {$item['nombre']}. Disponible: {$producto->stock}");
+            }
+        }
 
         DB::beginTransaction();
         try {
@@ -121,6 +145,7 @@ class CheckoutController extends Controller
                     'precio_unitario' => $precioFinal,
                     'subtotal' => $subtotalItem,
                     'atributo_info' => $item['atributo_nombre'] ?? null,
+                    'atributo_id' => $item['atributo_id'] ?? null,
                 ];
 
                 $mpItems[] = [
@@ -162,6 +187,20 @@ class CheckoutController extends Controller
                     'mp_payment_id' => 'TEST_' . $pedido->id,
                     'mp_status' => 'approved',
                 ]);
+
+                foreach ($itemsPedido as $item) {
+                    $producto = \App\Models\Producto::find($item['producto_id']);
+                    if ($producto) {
+                        if ($item['atributo_id']) {
+                            $atributo = $producto->atributos()->find($item['atributo_id']);
+                            if ($atributo && $atributo->stock !== null) {
+                                $atributo->decrement('stock', $item['cantidad']);
+                            }
+                        } elseif ($producto->stock !== null) {
+                            $producto->decrement('stock', $item['cantidad']);
+                        }
+                    }
+                }
 
                 if (Auth::check() && !Auth::user()->is_admin) {
                     \App\Models\CartItem::where('user_id', Auth::id())->delete();
