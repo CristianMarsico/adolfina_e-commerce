@@ -25,13 +25,13 @@ class MercadoPagoService
         return $this->testMode;
     }
 
-    public function crearPreferencia(array $items, array $payer, string $externalReference, array $backUrls): Preference|array
+    public function crearPreferencia(array $items, array $payer, string $externalReference, array $backUrls, ?string $token = null): Preference|array
     {
         if ($this->testMode) {
             return [
                 'id' => 'TEST_' . $externalReference . '_' . time(),
-                'init_point' => route('checkout.test-pagar', ['pedido' => $externalReference]),
-                'sandbox_init_point' => route('checkout.test-pagar', ['pedido' => $externalReference]),
+                'init_point' => route('checkout.test-pagar', ['pedido' => $externalReference, 'token' => $token]),
+                'sandbox_init_point' => route('checkout.test-pagar', ['pedido' => $externalReference, 'token' => $token]),
             ];
         }
 

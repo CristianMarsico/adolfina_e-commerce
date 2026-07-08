@@ -205,8 +205,14 @@ class CheckoutController extends Controller
         }
     }
 
-    public function testPagar(Pedido $pedido)
+    public function testPagar(Request $request, Pedido $pedido)
     {
+        abort_unless(config('services.mercadopago.sandbox'), 404);
+
+        if (!$pedido->token || $request->token !== $pedido->token) {
+            abort(403);
+        }
+
         $pedido->update([
             'estado' => 'pagado',
             'mp_payment_id' => 'TEST_' . $pedido->id,
