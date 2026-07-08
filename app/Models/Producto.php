@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class Producto extends Model
 {
@@ -62,24 +63,25 @@ class Producto extends Model
             ->withTimestamps();
     }
 
-    public function ofertaActiva()
+    public function getDescuentoAttribute(): ?Promocion
     {
-        return $this->belongsToMany(Promocion::class, 'promocion_producto')
-            ->wherePivot('producto_id', $this->id)
+        $promociones = $this->relationLoaded('promociones')
+            ? $this->relations['promociones']
+            : $this->promociones()->get();
+
+        $activa = $promociones
             ->where('activo', true)
             ->where('fecha_inicio', '<=', now())
-            ->whereDate('fecha_fin', '>=', now())
-            ->orderBy('valor_descuento', 'desc');
+            ->where('fecha_fin', '>=', now())
+            ->sortByDesc('valor_descuento')
+            ->first();
+
+        return $activa;
     }
 
-    public function getPrecioOfertaAttribute()
+    public function getPrecioOfertaAttribute(): ?float
     {
-        $oferta = $this->promociones()
-            ->where('activo', true)
-            ->where('fecha_inicio', '<=', now())
-            ->whereDate('fecha_fin', '>=', now())
-            ->orderBy('valor_descuento', 'desc')
-            ->first();
+        $oferta = $this->descuento;
 
         if (!$oferta) {
             return null;
@@ -90,18 +92,6 @@ class Producto extends Model
         }
 
         return max(0, $this->precio - $oferta->valor_descuento);
-    }
-
-    public function getDescuentoAttribute()
-    {
-        $oferta = $this->promociones()
-            ->where('activo', true)
-            ->where('fecha_inicio', '<=', now())
-            ->whereDate('fecha_fin', '>=', now())
-            ->orderBy('valor_descuento', 'desc')
-            ->first();
-
-        return $oferta;
     }
 
     protected function casts(): array
