@@ -14,17 +14,20 @@ class CheckoutController extends Controller
     private function getCart()
     {
         if (Auth::check() && !Auth::user()->is_admin) {
-            $cartItems = \App\Models\CartItem::where('user_id', Auth::id())->get();
+            $cartItems = \App\Models\CartItem::with('producto.atributos')
+                ->where('user_id', Auth::id())
+                ->get();
             $cart = [];
 
             foreach ($cartItems as $item) {
                 $producto = $item->producto;
+                if (!$producto) continue;
                 $key = $producto->id . '-' . ($item->atributo_id ?? '0');
                 $precio = (float) $producto->precio;
                 $atributoNombre = null;
 
                 if ($item->atributo_id) {
-                    $atributo = $producto->atributos()->find($item->atributo_id);
+                    $atributo = $producto->atributos->firstWhere('id', $item->atributo_id);
                     if ($atributo) {
                         $precio += (float) $atributo->precio_adicional;
                         $atributoNombre = $atributo->valor;
