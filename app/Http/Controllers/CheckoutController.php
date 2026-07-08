@@ -202,18 +202,19 @@ class CheckoutController extends Controller
                     }
                 }
 
-                if (Auth::check() && !Auth::user()->is_admin) {
-                    \App\Models\CartItem::where('user_id', Auth::id())->delete();
-                } else {
-                    session()->forget('cart');
-                }
-
-                DB::commit();
-
-                return redirect()->route('checkout.exito', [$pedido, 'token' => $token]);
+            if (Auth::check() && !Auth::user()->is_admin) {
+                \App\Models\CartItem::where('user_id', Auth::id())->delete();
+                session()->forget('cart');
+            } else {
+                session()->forget('cart');
             }
 
-            $preferencia = $mp->crearPreferencia(
+            DB::commit();
+
+            return redirect()->route('checkout.exito', [$pedido, 'token' => $token]);
+        }
+
+        $preferencia = $mp->crearPreferencia(
                 $mpItems,
                 ['name' => $request->nombre, 'email' => $request->email],
                 (string) $pedido->id,
@@ -226,12 +227,6 @@ class CheckoutController extends Controller
             );
 
             $pedido->update(['mp_preference_id' => $preferencia->id]);
-
-            if (Auth::check() && !Auth::user()->is_admin) {
-                \App\Models\CartItem::where('user_id', Auth::id())->delete();
-            } else {
-                session()->forget('cart');
-            }
 
             DB::commit();
 
@@ -280,6 +275,12 @@ class CheckoutController extends Controller
     public function exito(Request $request, Pedido $pedido)
     {
         abort_unless($this->autorizarPedido($pedido, $request), 403);
+
+        if (Auth::check() && !Auth::user()->is_admin) {
+            \App\Models\CartItem::where('user_id', Auth::id())->delete();
+        }
+        session()->forget('cart');
+
         $pedido->load('items.producto');
         return view('tienda.pedido-exito', compact('pedido'));
     }

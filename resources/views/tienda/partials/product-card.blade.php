@@ -3,7 +3,7 @@
     precio: {{ $producto->precio }},
     precioOferta: {{ $producto->precio_oferta ?? 'null' }},
     tieneDescuento: {{ $producto->descuento ? 'true' : 'false' }},
-    tipoDescuento: '{{ addslashes($producto->descuento?->tipo_descuento ?? '') }}',
+    tipoDescuento: JSON.parse('{!! json_encode($producto->descuento?->tipo_descuento ?? '') !!}'),
     valorDescuento: {{ $producto->descuento?->valor_descuento ?? 'null' }},
     stock: {{ $producto->stock ?? 0 }}
 })" class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow group flex flex-col">

@@ -271,7 +271,12 @@
                 valorDescuento: data.valorDescuento,
                 stock: data.stock,
                 init() {
-                    setInterval(() => this.fetchPrecio(), 60000);
+                    this._interval = setInterval(() => this.fetchPrecio(), 60000);
+                },
+                destroy() {
+                    if (this._interval) {
+                        clearInterval(this._interval);
+                    }
                 },
                 fetchPrecio() {
                     fetch('/api/productos/' + data.id + '/precio')
