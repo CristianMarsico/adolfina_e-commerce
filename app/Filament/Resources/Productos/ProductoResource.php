@@ -7,7 +7,6 @@ use App\Filament\Resources\Productos\Pages\EditProducto;
 use App\Filament\Resources\Productos\Pages\ListProductos;
 use App\Filament\Resources\Productos\RelationManagers\AtributosRelationManager;
 use App\Filament\Resources\Productos\RelationManagers\ImagenesRelationManager;
-use App\Filament\Resources\Productos\RelationManagers\TallesRelationManager;
 use App\Filament\Resources\Productos\Schemas\ProductoForm;
 use App\Filament\Resources\Productos\Tables\ProductosTable;
 use App\Models\Producto;
@@ -40,7 +39,6 @@ class ProductoResource extends Resource
         return [
             ImagenesRelationManager::class,
             AtributosRelationManager::class,
-            TallesRelationManager::class,
         ];
     }
 

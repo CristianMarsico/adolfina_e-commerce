@@ -18,7 +18,7 @@ class Producto extends Model
         'edad_talla',
         'activo',
         'destacado',
-        'tiene_talles',
+        'tiene_talla',
     ];
 
     public function categoria()
@@ -56,13 +56,6 @@ class Producto extends Model
         return $this->belongsToMany(Promocion::class, 'promocion_producto');
     }
 
-    public function talles()
-    {
-        return $this->belongsToMany(Talle::class, 'producto_talle')
-            ->withPivot('stock')
-            ->withTimestamps();
-    }
-
     public function getDescuentoAttribute(): ?Promocion
     {
         $promociones = $this->relationLoaded('promociones')
@@ -71,8 +64,8 @@ class Producto extends Model
 
         $activa = $promociones
             ->where('activo', true)
-            ->where('fecha_inicio', '<=', now())
-            ->where('fecha_fin', '>=', now())
+            ->where('fecha_inicio', '<=', now()->startOfDay())
+            ->where('fecha_fin', '>=', now()->startOfDay())
             ->sortByDesc('valor_descuento')
             ->first();
 
@@ -100,7 +93,7 @@ class Producto extends Model
             'precio' => 'decimal:2',
             'activo' => 'boolean',
             'destacado' => 'boolean',
-            'tiene_talles' => 'boolean',
+            'tiene_talla' => 'boolean',
         ];
     }
 }

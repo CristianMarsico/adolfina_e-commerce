@@ -50,31 +50,31 @@ class ProductoSeeder extends Seeder
                 'categoria_id' => 3, 'nombre' => 'Crema para pañal Mustela 100ml',
                 'descripcion' => 'Crema protectora para la zona del pañal, previene y trata la irritación.',
                 'marca_id' => $marcas['Mustela'], 'etapa_id' => $etapas['Bebé'], 'precio' => 6200, 'stock' => 50,
-                'destacado' => true, 'tiene_talles' => false,
+                'destacado' => true,
             ],
             [
                 'categoria_id' => 3, 'nombre' => 'Shampoo + jabón líquido Johnson Baby 500ml',
                 'descripcion' => 'Shampoo y jabón 2 en 1, fórmula suave sin lágrimas.',
                 'marca_id' => $marcas['Johnson'], 'etapa_id' => $etapas['Bebé'], 'precio' => 4100, 'stock' => 70,
-                'destacado' => false, 'tiene_talles' => false,
+                'destacado' => false,
             ],
             [
                 'categoria_id' => 4, 'nombre' => 'Leche NAN 1 polvo 800g',
                 'descripcion' => 'Leche en polvo para lactantes desde el primer día.',
                 'marca_id' => $marcas['Nestlé NAN'], 'etapa_id' => $etapas['Bebé'], 'precio' => 14500, 'stock' => 40,
-                'edad_talla' => '0-6 meses', 'destacado' => true, 'tiene_talles' => false,
+                'edad_talla' => '0-6 meses', 'destacado' => true,
             ],
             [
                 'categoria_id' => 4, 'nombre' => 'Papilla Nestum Multicereal 200g',
                 'descripcion' => 'Papilla de multicereal fortificada con vitaminas y minerales.',
                 'marca_id' => $marcas['Nestum'], 'etapa_id' => $etapas['Bebé'], 'precio' => 3200, 'stock' => 90,
-                'edad_talla' => '6+ meses', 'destacado' => false, 'tiene_talles' => false,
+                'edad_talla' => '6+ meses', 'destacado' => false,
             ],
             [
                 'categoria_id' => 5, 'nombre' => 'Chupete ortodóntico silicona 0-6m x2',
                 'descripcion' => 'Chupete de silicona ortodóntico con protector nasal. Pack x2.',
                 'marca_id' => $marcas['Chicco'], 'etapa_id' => $etapas['Bebé'], 'precio' => 2800, 'stock' => 100,
-                'destacado' => false, 'tiene_talles' => false,
+                'destacado' => false,
             ],
         ];
 
