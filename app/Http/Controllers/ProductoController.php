@@ -6,6 +6,7 @@ use App\Models\Categoria;
 use App\Models\Etapa;
 use App\Models\Marca;
 use App\Models\Producto;
+use App\Models\Promocion;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
@@ -14,12 +15,14 @@ class ProductoController extends Controller
     {
         $destacados = Producto::where('activo', true)
             ->where('destacado', true)
+            ->whereDoesntHave('promociones', fn($q) => $q->activa())
             ->with('imagenPrincipal', 'promociones')
             ->latest()
             ->take(8)
             ->get();
 
         $nuevos = Producto::where('activo', true)
+            ->whereDoesntHave('promociones', fn($q) => $q->activa())
             ->with('imagenPrincipal', 'promociones')
             ->latest()
             ->take(8)
@@ -31,7 +34,11 @@ class ProductoController extends Controller
             }])
             ->get();
 
-        return view('tienda.home', compact('destacados', 'nuevos', 'categorias'));
+        $promociones = Promocion::activa()
+            ->with(['productos' => fn($q) => $q->where('activo', true)->with('imagenPrincipal', 'promociones')])
+            ->get();
+
+        return view('tienda.home', compact('destacados', 'nuevos', 'categorias', 'promociones'));
     }
 
     public function catalogo(Request $request)
@@ -87,7 +94,7 @@ class ProductoController extends Controller
         $productos = $query->paginate(12)->withQueryString();
 
         $categorias = Categoria::where('activo', true)->get();
-        $marcas = Marca::orderBy('nombre')->pluck('nombre', 'id');
+        $marcas = Marca::where('activo', true)->orderBy('nombre')->pluck('nombre', 'id');
         $etapas = Etapa::where('activo', true)->orderBy('nombre')->pluck('nombre', 'id');
 
         return view('tienda.catalogo', compact('productos', 'categorias', 'marcas', 'etapas'));
