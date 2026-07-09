@@ -25,6 +25,27 @@
     </div>
 </section>
 
+{{-- Promociones --}}
+@if($promociones->isNotEmpty())
+    @foreach($promociones as $promocion)
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800">
+                    {{ $promocion->nombre }}
+                </h2>
+                @if($promocion->descripcion)
+                    <p class="text-gray-500 mt-2">{{ $promocion->descripcion }}</p>
+                @endif
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                @foreach($promocion->productos as $producto)
+                    @include('tienda.partials.product-card', ['producto' => $producto])
+                @endforeach
+            </div>
+        </section>
+    @endforeach
+@endif
+
 {{-- Featured Products --}}
 @if($destacados->isNotEmpty())
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

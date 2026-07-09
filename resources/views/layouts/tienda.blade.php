@@ -52,7 +52,7 @@
 
                         @auth
                             @if(Auth::user()->is_admin)
-                                <a href="/admin" class="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-sky-600 transition-colors">Panel admin</a>
+                                <a href="/admin" data-turbo="false" class="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-sky-600 transition-colors">Panel admin</a>
                             @else
                                 <a href="{{ route('dashboard') }}" class="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-sky-600 transition-colors">Mi cuenta</a>
                                 <form method="POST" action="{{ route('logout') }}" class="hidden sm:inline-block">
@@ -139,7 +139,7 @@
                     <hr class="my-2 border-gray-200">
                     @auth
                         @if(Auth::user()->is_admin)
-                            <a href="/admin" class="block px-3 py-2 text-sm font-medium text-gray-600 hover:text-sky-600 hover:bg-sky-50 rounded-lg">Panel admin</a>
+                            <a href="/admin" data-turbo="false" class="block px-3 py-2 text-sm font-medium text-gray-600 hover:text-sky-600 hover:bg-sky-50 rounded-lg">Panel admin</a>
                         @else
                             <a href="{{ route('dashboard') }}" class="block px-3 py-2 text-sm font-medium text-gray-600 hover:text-sky-600 hover:bg-sky-50 rounded-lg">Mi cuenta</a>
                             <form method="POST" action="{{ route('logout') }}">
@@ -259,40 +259,5 @@
     </a>
 
     @stack('scripts')
-
-    {{-- Alpine product card component --}}
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('productCard', (data) => ({
-                precio: data.precio,
-                precioOferta: data.precioOferta,
-                tieneDescuento: data.tieneDescuento,
-                tipoDescuento: data.tipoDescuento,
-                valorDescuento: data.valorDescuento,
-                stock: data.stock,
-                init() {
-                    this._interval = setInterval(() => this.fetchPrecio(), 60000);
-                },
-                destroy() {
-                    if (this._interval) {
-                        clearInterval(this._interval);
-                    }
-                },
-                fetchPrecio() {
-                    fetch('/api/productos/' + data.id + '/precio')
-                        .then(r => r.json())
-                        .then(d => {
-                            this.precio = d.precio;
-                            this.precioOferta = d.precio_oferta;
-                            this.tieneDescuento = !!d.descuento;
-                            this.tipoDescuento = d.descuento ? d.descuento.tipo : '';
-                            this.valorDescuento = d.descuento ? d.descuento.valor : null;
-                            this.stock = d.stock;
-                        })
-                        .catch(() => {});
-                }
-            }));
-        });
-    </script>
 </body>
 </html>

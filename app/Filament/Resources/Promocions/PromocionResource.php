@@ -37,6 +37,11 @@ class PromocionResource extends Resource
         return PromocionsTable::configure($table);
     }
 
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) static::getModel()::count();
+    }
+
     public static function getRelations(): array
     {
         return [

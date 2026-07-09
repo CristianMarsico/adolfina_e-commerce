@@ -225,12 +225,3 @@
 </div>
 @endsection
 
-@push('scripts')
-<script>
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('productQty', () => ({
-            qty: 1
-        }))
-    })
-</script>
-@endpush
