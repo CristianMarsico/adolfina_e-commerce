@@ -6,6 +6,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
@@ -16,6 +17,10 @@ class MarcasTable
     {
         return $table
             ->columns([
+                ImageColumn::make('imagen')
+                    ->label('Imagen')
+                    ->disk('public')
+                    ->square(),
                 TextColumn::make('nombre')
                     ->searchable(),
                 IconColumn::make('activo')
