@@ -159,6 +159,9 @@ if (\$admin) {
 php artisan filament:assets 2>&1 | tee -a /tmp/startup.log || echo ">>> filament:assets FAILED" | tee -a /tmp/startup.log
 php artisan filament:cache-components 2>&1 | tee -a /tmp/startup.log || echo ">>> filament:cache skipped" | tee -a /tmp/startup.log
 
+# Create storage symlink (needed for serving uploaded images)
+php artisan storage:link --force 2>&1 | tee -a /tmp/startup.log
+
 # Fix permissions: artisan commands run as root, PHP-FPM runs as appuser
 chown -R appuser:appuser /var/www/html/storage /var/www/html/bootstrap/cache
 
