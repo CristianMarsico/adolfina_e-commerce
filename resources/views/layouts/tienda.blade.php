@@ -53,6 +53,10 @@
                         @auth
                             @if(Auth::user()->is_admin)
                                 <a href="/admin" data-turbo="false" class="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-sky-600 transition-colors">Panel admin</a>
+                                <form method="POST" action="{{ route('logout') }}" class="hidden sm:inline-block">
+                                    @csrf
+                                    <button type="submit" class="text-sm font-medium text-gray-500 hover:text-red-500 transition-colors">Cerrar sesión</button>
+                                </form>
                             @else
                                 <a href="{{ route('dashboard') }}" class="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-sky-600 transition-colors">Mi cuenta</a>
                                 <form method="POST" action="{{ route('logout') }}" class="hidden sm:inline-block">
@@ -140,6 +144,10 @@
                     @auth
                         @if(Auth::user()->is_admin)
                             <a href="/admin" data-turbo="false" class="block px-3 py-2 text-sm font-medium text-gray-600 hover:text-sky-600 hover:bg-sky-50 rounded-lg">Panel admin</a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="block w-full text-left px-3 py-2 text-sm font-medium text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg">Cerrar sesión</button>
+                            </form>
                         @else
                             <a href="{{ route('dashboard') }}" class="block px-3 py-2 text-sm font-medium text-gray-600 hover:text-sky-600 hover:bg-sky-50 rounded-lg">Mi cuenta</a>
                             <form method="POST" action="{{ route('logout') }}">

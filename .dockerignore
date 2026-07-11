@@ -1,0 +1,16 @@
+node_modules
+vendor
+.env
+.env.*
+!.env.example
+.git
+.gitignore
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+docker/
+tests/
+*.md
+.vscode
+.idea
+.DS_Store

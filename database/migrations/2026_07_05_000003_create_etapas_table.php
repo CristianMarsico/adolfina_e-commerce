@@ -8,15 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('producto_talle', function (Blueprint $table) {
-            $table->unique(['producto_id', 'talle_id']);
+        Schema::create('etapas', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre');
+            $table->boolean('activo')->default(true);
+            $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::table('producto_talle', function (Blueprint $table) {
-            $table->dropUnique(['producto_id', 'talle_id']);
-        });
+        Schema::dropIfExists('etapas');
     }
 };

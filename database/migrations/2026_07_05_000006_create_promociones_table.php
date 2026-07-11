@@ -6,15 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('promociones', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('slug')->nullable()->unique();
             $table->text('descripcion')->nullable();
             $table->enum('tipo_descuento', ['porcentaje', 'fijo'])->default('porcentaje');
             $table->decimal('valor_descuento', 10, 2);
@@ -23,13 +19,19 @@ return new class extends Migration
             $table->boolean('activo')->default(true);
             $table->timestamps();
         });
+
+        Schema::create('promocion_producto', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('promocion_id')->constrained('promociones')->cascadeOnDelete();
+            $table->foreignId('producto_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
+            $table->unique(['promocion_id', 'producto_id']);
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
+        Schema::dropIfExists('promocion_producto');
         Schema::dropIfExists('promociones');
     }
 };
