@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict TUvhS3tLsSdtReBow6tT750MmC2KnMde1IdfnI4lje8FxaP684fyMe23tm6SFLD
+-- \restrict removed (causes psql failures in non-interactive mode)
 
 -- Dumped from database version 17.10
 -- Dumped by pg_dump version 17.10

@@ -68,14 +68,22 @@ php artisan config:cache 2>&1 | tee -a /tmp/startup.log
 php artisan view:cache 2>&1 | tee -a /tmp/startup.log
 
 # Import SQL if panalera.sql exists and database is empty
+echo ">>> DIAGNOSTIC: panalera.sql exists? $(test -f database/panalera.sql && echo YES || echo NO)" | tee -a /tmp/startup.log
+echo ">>> DIAGNOSTIC: panalera.sql size: $(wc -c < database/panalera.sql 2>/dev/null || echo 'N/A') bytes" | tee -a /tmp/startup.log
 if [ -f "database/panalera.sql" ]; then
-    TABLE_COUNT=$(php artisan tinker --execute="echo DB::select('SELECT count(*) as c FROM information_schema.tables WHERE table_schema = \'public\'')[0]->c;" 2>/dev/null || echo "0")
+    TABLE_COUNT=$(php artisan tinker --execute="echo DB::select('SELECT count(*) as c FROM information_schema.tables WHERE table_schema = \'public\'')[0]->c;" 2>&1 || echo "0")
+    echo ">>> DIAGNOSTIC: TABLE_COUNT=${TABLE_COUNT}" | tee -a /tmp/startup.log
     if [ "$TABLE_COUNT" -le 1 ]; then
         echo ">>> Importing panalera.sql (database is empty)..." | tee -a /tmp/startup.log
         PGPASSWORD="${DB_PASSWORD}" psql -h "${DB_HOST}" -U "${DB_USERNAME}" -d "${DB_DATABASE}" -f database/panalera.sql 2>&1 | tee -a /tmp/startup.log
+        echo ">>> DIAGNOSTIC: psql exit code: $?" | tee -a /tmp/startup.log
+        TABLE_COUNT_AFTER=$(php artisan tinker --execute="echo DB::select('SELECT count(*) as c FROM information_schema.tables WHERE table_schema = \'public\'')[0]->c;" 2>/dev/null || echo "0")
+        echo ">>> DIAGNOSTIC: TABLE_COUNT after import: ${TABLE_COUNT_AFTER}" | tee -a /tmp/startup.log
     else
         echo ">>> Database already has $TABLE_COUNT tables, skipping SQL import" | tee -a /tmp/startup.log
     fi
+else
+    echo ">>> WARNING: panalera.sql NOT FOUND in container!" | tee -a /tmp/startup.log
 fi
 
 # Mark all migrations as ran (tables exist from SQL import)
