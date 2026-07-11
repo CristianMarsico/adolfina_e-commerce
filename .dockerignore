@@ -8,7 +8,6 @@ vendor
 storage/logs/*
 storage/framework/cache/*
 storage/framework/sessions/*
-docker/
 tests/
 *.md
 .vscode
