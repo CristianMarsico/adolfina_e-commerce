@@ -22,9 +22,9 @@
             @php
                 $mainImage = $producto->imagenes->firstWhere('es_principal', true) ?? $producto->imagenes->first();
             @endphp
-            <div class="bg-gray-100 rounded-2xl overflow-hidden aspect-square flex items-center justify-center mb-4">
+            <div class="bg-gray-100 rounded-2xl overflow-hidden aspect-square max-w-sm mx-auto flex items-center justify-center mb-4">
                 @if($producto->imagenes->isNotEmpty())
-                    <img :src="selectedImage" src="{{ asset('storage/' . $mainImage->path) }}" alt="{{ $producto->nombre }}" class="w-full h-full object-cover">
+                    <img :src="selectedImage" src="{{ asset('storage/' . $mainImage->path) }}" alt="{{ $producto->nombre }}" class="w-full h-full object-contain">
                 @else
                     <div class="text-center text-gray-400">
                         <svg class="w-20 h-20 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,7 +96,7 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                         </svg>
-                        En stock
+                        {{ $producto->stock }} en stock
                     </span>
                 @else
                     <span class="text-red-500 text-sm font-medium">Sin stock</span>
@@ -174,7 +174,7 @@
                 </div>
 
                 <div x-show="tab === 'description'" class="text-gray-600 text-sm leading-relaxed prose max-w-none">
-                    {{ $producto->descripcion ?? 'Sin descripción disponible.' }}
+                    {!! $producto->descripcion ?? 'Sin descripción disponible.' !!}
                 </div>
 
                 <div x-show="tab === 'details'" class="text-sm text-gray-600">
