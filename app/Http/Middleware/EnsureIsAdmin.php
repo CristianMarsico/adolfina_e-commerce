@@ -10,7 +10,11 @@ class EnsureIsAdmin
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->user()?->is_admin) {
+        if (!$request->user()) {
+            return redirect()->route('admin.ingresar');
+        }
+
+        if (!$request->user()->is_admin) {
             return redirect()->route('home')
                 ->with('error', 'No tenés permisos de administrador.');
         }

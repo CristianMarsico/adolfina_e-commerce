@@ -9,9 +9,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
-use Filament\Schemas\Components\Actions as ActionsComponent;
-use Filament\Schemas\Components\EmbeddedSchema;
-use Filament\Schemas\Components\Form;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -31,18 +28,13 @@ class ConfiguracionPage extends Page
     public function mount(): void
     {
         $config = Configuracion::firstOrCreate(['id' => 1]);
-        $this->form->fill($config->toArray());
+        $this->data = $config->toArray();
     }
 
-    public function defaultForm(Schema $schema): Schema
+    public function content(Schema $schema): Schema
     {
         return $schema
-            ->statePath('data');
-    }
-
-    public function form(Schema $schema): Schema
-    {
-        return $schema
+            ->statePath('data')
             ->components([
                 Section::make('Información del negocio')
                     ->schema([
@@ -90,26 +82,19 @@ class ConfiguracionPage extends Page
             ]);
     }
 
-    public function content(Schema $schema): Schema
+    protected function getHeaderActions(): array
     {
-        return $schema
-            ->components([
-                Form::make([EmbeddedSchema::make('form')])
-                    ->id('form')
-                    ->livewireSubmitHandler('save')
-                    ->footer([
-                        ActionsComponent::make([
-                            Action::make('save')
-                                ->label('Guardar cambios')
-                                ->submit('save'),
-                        ]),
-                    ]),
-            ]);
+        return [
+            Action::make('save')
+                ->label('Guardar cambios')
+                ->action('save')
+                ->icon('heroicon-o-check'),
+        ];
     }
 
     public function save(): void
     {
-        $data = $this->form->getState();
+        $data = $this->data;
         $config = Configuracion::firstOrCreate(['id' => 1]);
         $config->update($data);
 
