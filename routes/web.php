@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
@@ -40,6 +41,12 @@ Route::post('/webhook/mp', [WebhookController::class, 'mp'])->name('webhook.mp')
 
 // API (live updates)
 Route::get('/api/productos/{producto}/precio', [ApiProductoController::class, 'precio'])->name('api.productos.precio');
+
+// Admin login Blade (no Livewire — works on mobile)
+Route::middleware('guest')->group(function () {
+    Route::get('/admin/ingresar', [AdminLoginController::class, 'showLoginForm'])->name('admin.ingresar');
+    Route::post('/admin/ingresar', [AdminLoginController::class, 'login'])->name('admin.ingresar.post');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
