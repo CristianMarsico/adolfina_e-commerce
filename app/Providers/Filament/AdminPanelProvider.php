@@ -27,7 +27,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login(static fn () => redirect(route('admin.ingresar')))
+            ->login(null)
             ->colors([
                 'primary' => Color::Amber,
             ])
