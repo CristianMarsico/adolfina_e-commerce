@@ -65,8 +65,6 @@ php artisan config:clear 2>&1 | tee /tmp/startup.log
 php artisan route:clear 2>&1 | tee -a /tmp/startup.log
 php artisan view:clear 2>&1 | tee -a /tmp/startup.log
 php artisan package:discover --ansi 2>&1 | tee -a /tmp/startup.log
-php artisan config:cache 2>&1 | tee -a /tmp/startup.log
-php artisan view:cache 2>&1 | tee -a /tmp/startup.log
 
 # Import SQL if panalera.sql exists and database is empty
 echo ">>> DIAGNOSTIC: panalera.sql exists? $(test -f database/panalera.sql && echo YES || echo NO)" | tee -a /tmp/startup.log
@@ -157,8 +155,13 @@ if (\$admin) {
 }
 " 2>&1 | tee -a /tmp/startup.log
 
+php artisan filament:clear-cached-components 2>&1 | tee -a /tmp/startup.log || true
 php artisan filament:assets 2>&1 | tee -a /tmp/startup.log || echo ">>> filament:assets FAILED" | tee -a /tmp/startup.log
 php artisan filament:cache-components 2>&1 | tee -a /tmp/startup.log || echo ">>> filament:cache skipped" | tee -a /tmp/startup.log
+
+# Rebuild config and view caches AFTER filament setup
+php artisan config:cache 2>&1 | tee -a /tmp/startup.log
+php artisan view:cache 2>&1 | tee -a /tmp/startup.log
 
 # Create storage symlink (needed for serving uploaded images)
 php artisan storage:link --force 2>&1 | tee -a /tmp/startup.log
