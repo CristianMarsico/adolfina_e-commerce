@@ -53,20 +53,20 @@
                         @auth
                             @if(Auth::user()->is_admin)
                                 <a href="/admin" data-turbo="false" class="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-sky-600 transition-colors">Panel admin</a>
-                                <form method="POST" action="{{ route('logout') }}" class="hidden sm:inline-block">
+                                <form method="POST" action="{{ route('logout') }}" data-turbo="false" class="hidden sm:inline-block">
                                     @csrf
                                     <button type="submit" class="text-sm font-medium text-gray-500 hover:text-red-500 transition-colors">Cerrar sesión</button>
                                 </form>
                             @else
-                                <a href="{{ route('dashboard') }}" class="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-sky-600 transition-colors">Mi cuenta</a>
-                                <form method="POST" action="{{ route('logout') }}" class="hidden sm:inline-block">
+                                <a href="{{ route('dashboard') }}" data-turbo="false" class="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-sky-600 transition-colors">Mi cuenta</a>
+                                <form method="POST" action="{{ route('logout') }}" data-turbo="false" class="hidden sm:inline-block">
                                     @csrf
                                     <button type="submit" class="text-sm font-medium text-gray-500 hover:text-red-500 transition-colors">Cerrar sesión</button>
                                 </form>
                             @endif
                         @else
-                            <a href="{{ route('login') }}" class="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-sky-600 transition-colors">Ingresar</a>
-                            <a href="{{ route('register') }}" class="hidden sm:inline-flex text-sm font-medium bg-sky-500 text-white px-4 py-2 rounded-full hover:bg-sky-600 transition-colors">Registrarse</a>
+                            <a href="{{ route('login') }}" data-turbo="false" class="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-sky-600 transition-colors">Ingresar</a>
+                            <a href="{{ route('register') }}" data-turbo="false" class="hidden sm:inline-flex text-sm font-medium bg-sky-500 text-white px-4 py-2 rounded-full hover:bg-sky-600 transition-colors">Registrarse</a>
                         @endauth
 
                         {{-- Mobile menu toggle --}}
@@ -144,20 +144,20 @@
                     @auth
                         @if(Auth::user()->is_admin)
                             <a href="/admin" data-turbo="false" class="block px-3 py-2 text-sm font-medium text-gray-600 hover:text-sky-600 hover:bg-sky-50 rounded-lg">Panel admin</a>
-                            <form method="POST" action="{{ route('logout') }}">
+                            <form method="POST" action="{{ route('logout') }}" data-turbo="false">
                                 @csrf
                                 <button type="submit" class="block w-full text-left px-3 py-2 text-sm font-medium text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg">Cerrar sesión</button>
                             </form>
                         @else
-                            <a href="{{ route('dashboard') }}" class="block px-3 py-2 text-sm font-medium text-gray-600 hover:text-sky-600 hover:bg-sky-50 rounded-lg">Mi cuenta</a>
-                            <form method="POST" action="{{ route('logout') }}">
+                            <a href="{{ route('dashboard') }}" data-turbo="false" class="block px-3 py-2 text-sm font-medium text-gray-600 hover:text-sky-600 hover:bg-sky-50 rounded-lg">Mi cuenta</a>
+                            <form method="POST" action="{{ route('logout') }}" data-turbo="false">
                                 @csrf
                                 <button type="submit" class="block w-full text-left px-3 py-2 text-sm font-medium text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg">Cerrar sesión</button>
                             </form>
                         @endif
                     @else
-                        <a href="{{ route('login') }}" class="block px-3 py-2 text-sm font-medium text-gray-600 hover:text-sky-600 hover:bg-sky-50 rounded-lg">Ingresar</a>
-                        <a href="{{ route('register') }}" class="block px-3 py-2 text-sm font-medium bg-sky-500 text-white hover:bg-sky-600 rounded-lg text-center">Registrarse</a>
+                        <a href="{{ route('login') }}" data-turbo="false" class="block px-3 py-2 text-sm font-medium text-gray-600 hover:text-sky-600 hover:bg-sky-50 rounded-lg">Ingresar</a>
+                        <a href="{{ route('register') }}" data-turbo="false" class="block px-3 py-2 text-sm font-medium bg-sky-500 text-white hover:bg-sky-600 rounded-lg text-center">Registrarse</a>
                     @endauth
                 </div>
             </nav>

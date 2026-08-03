@@ -8,7 +8,6 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\Api\ProductoController as ApiProductoController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // Public store routes
@@ -56,13 +55,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::get('/logout', function () {
-        Auth::guard('web')->logout();
-        session()->invalidate();
-        session()->regenerateToken();
-        return redirect('/');
-    })->name('logout');
 });
 
 require __DIR__.'/auth.php';
