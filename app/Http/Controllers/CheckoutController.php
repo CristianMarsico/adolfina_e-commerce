@@ -14,7 +14,7 @@ class CheckoutController extends Controller
     private function getCart()
     {
         if (Auth::check() && !Auth::user()->is_admin) {
-            $cartItems = \App\Models\CartItem::with('producto.atributos')
+            $cartItems = \App\Models\CartItem::with('producto')
                 ->where('user_id', Auth::id())
                 ->get();
             $cart = [];
@@ -22,25 +22,13 @@ class CheckoutController extends Controller
             foreach ($cartItems as $item) {
                 $producto = $item->producto;
                 if (!$producto) continue;
-                $key = $producto->id . '-' . ($item->atributo_id ?? '0');
-                $precio = (float) $producto->precio;
-                $atributoNombre = null;
-
-                if ($item->atributo_id) {
-                    $atributo = $producto->atributos->firstWhere('id', $item->atributo_id);
-                    if ($atributo) {
-                        $precio += (float) $atributo->precio_adicional;
-                        $atributoNombre = $atributo->valor;
-                    }
-                }
+                $key = (string) $producto->id;
 
                 $cart[$key] = [
                     'producto_id' => $producto->id,
                     'nombre' => $producto->nombre,
-                    'precio' => $precio,
+                    'precio' => (float) $producto->precio,
                     'cantidad' => $item->cantidad,
-                    'atributo_id' => $item->atributo_id,
-                    'atributo_nombre' => $atributoNombre,
                 ];
             }
 
@@ -95,7 +83,6 @@ class CheckoutController extends Controller
         }
 
         $productos = \App\Models\Producto::whereIn('id', collect($cart)->pluck('producto_id'))
-            ->with('atributos')
             ->get()
             ->keyBy('id');
 
@@ -107,15 +94,7 @@ class CheckoutController extends Controller
 
             $qty = (int) $item['cantidad'];
 
-            if ($item['atributo_id']) {
-                $atributo = $producto->atributos->firstWhere('id', $item['atributo_id']);
-                if (!$atributo) {
-                    return redirect()->route('cart.index')->with('error', "Variante no disponible: {$item['nombre']}");
-                }
-                if ($atributo->stock !== null && $qty > (int) $atributo->stock) {
-                    return redirect()->route('cart.index')->with('error', "Stock insuficiente para {$item['nombre']} ({$atributo->valor}). Disponible: {$atributo->stock}");
-                }
-            } elseif ($producto->stock !== null && $qty > (int) $producto->stock) {
+            if ($producto->stock !== null && $qty > (int) $producto->stock) {
                 return redirect()->route('cart.index')->with('error', "Stock insuficiente para {$item['nombre']}. Disponible: {$producto->stock}");
             }
         }
@@ -144,14 +123,12 @@ class CheckoutController extends Controller
                     'cantidad' => $item['cantidad'],
                     'precio_unitario' => $precioFinal,
                     'subtotal' => $subtotalItem,
-                    'atributo_info' => $item['atributo_nombre'] ?? null,
-                    'atributo_id' => $item['atributo_id'] ?? null,
                 ];
 
                 $mpItems[] = [
                     'producto_id' => $item['producto_id'],
                     'nombre' => $item['nombre'],
-                    'descripcion' => $item['atributo_nombre'] ?? '',
+                    'descripcion' => '',
                     'cantidad' => $item['cantidad'],
                     'precio' => $precioFinal,
                 ];
@@ -190,15 +167,8 @@ class CheckoutController extends Controller
 
                 foreach ($itemsPedido as $item) {
                     $producto = \App\Models\Producto::find($item['producto_id']);
-                    if ($producto) {
-                        if ($item['atributo_id']) {
-                            $atributo = $producto->atributos()->find($item['atributo_id']);
-                            if ($atributo && $atributo->stock !== null) {
-                                $atributo->decrement('stock', $item['cantidad']);
-                            }
-                        } elseif ($producto->stock !== null) {
-                            $producto->decrement('stock', $item['cantidad']);
-                        }
+                    if ($producto && $producto->stock !== null) {
+                        $producto->decrement('stock', $item['cantidad']);
                     }
                 }
 

@@ -46,11 +46,6 @@ class Producto extends Model
         return $this->hasOne(ProductoImagen::class)->where('es_principal', true);
     }
 
-    public function atributos()
-    {
-        return $this->hasMany(ProductoAtributo::class);
-    }
-
     public function promociones()
     {
         return $this->belongsToMany(Promocion::class, 'promocion_producto');

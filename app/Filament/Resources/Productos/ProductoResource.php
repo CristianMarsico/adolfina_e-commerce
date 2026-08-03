@@ -5,7 +5,6 @@ namespace App\Filament\Resources\Productos;
 use App\Filament\Resources\Productos\Pages\CreateProducto;
 use App\Filament\Resources\Productos\Pages\EditProducto;
 use App\Filament\Resources\Productos\Pages\ListProductos;
-use App\Filament\Resources\Productos\RelationManagers\AtributosRelationManager;
 use App\Filament\Resources\Productos\RelationManagers\ImagenesRelationManager;
 use App\Filament\Resources\Productos\Schemas\ProductoForm;
 use App\Filament\Resources\Productos\Tables\ProductosTable;
@@ -38,7 +37,6 @@ class ProductoResource extends Resource
     {
         return [
             ImagenesRelationManager::class,
-            AtributosRelationManager::class,
         ];
     }
 

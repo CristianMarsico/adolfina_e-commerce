@@ -61,15 +61,8 @@ class WebhookController extends Controller
                     if ($mpStatus === 'approved' && $estadoAnterior !== 'pagado') {
                         foreach ($pedido->items as $item) {
                             $producto = \App\Models\Producto::find($item->producto_id);
-                            if ($producto) {
-                                if ($item->atributo_id) {
-                                    $atributo = $producto->atributos()->find($item->atributo_id);
-                                    if ($atributo && $atributo->stock !== null) {
-                                        $atributo->decrement('stock', $item->cantidad);
-                                    }
-                                } elseif ($producto->stock !== null) {
-                                    $producto->decrement('stock', $item->cantidad);
-                                }
+                            if ($producto && $producto->stock !== null) {
+                                $producto->decrement('stock', $item->cantidad);
                             }
                         }
                     }

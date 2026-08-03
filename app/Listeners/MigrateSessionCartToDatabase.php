@@ -20,18 +20,9 @@ class MigrateSessionCartToDatabase
         }
 
         foreach ($cart as $item) {
-            $query = CartItem::where('user_id', $event->user->id)
-                ->where('producto_id', $item['producto_id']);
-
-            $atributoId = $item['atributo_id'] ?? null;
-
-            if ($atributoId) {
-                $query->where('atributo_id', $atributoId);
-            } else {
-                $query->whereNull('atributo_id');
-            }
-
-            $existing = $query->first();
+            $existing = CartItem::where('user_id', $event->user->id)
+                ->where('producto_id', $item['producto_id'])
+                ->first();
 
             if ($existing) {
                 $existing->increment('cantidad', $item['cantidad']);
@@ -40,7 +31,6 @@ class MigrateSessionCartToDatabase
                     'user_id' => $event->user->id,
                     'producto_id' => $item['producto_id'],
                     'cantidad' => $item['cantidad'],
-                    'atributo_id' => $atributoId,
                 ]);
             }
         }

@@ -149,9 +149,6 @@
                                                             <span class="text-sm text-gray-400 font-medium shrink-0">{{ $item->cantidad }}x</span>
                                                             <div class="min-w-0">
                                                                 <p class="text-sm font-medium text-gray-800 truncate">{{ $item->nombre }}</p>
-                                                                @if($item->atributo_info)
-                                                                    <p class="text-xs text-gray-500">{{ $item->atributo_info }}</p>
-                                                                @endif
                                                             </div>
                                                         </div>
                                                         <span class="text-sm font-medium text-gray-700 shrink-0">${{ number_format($item->precio_unitario * $item->cantidad, 0, ',', '.') }}</span>

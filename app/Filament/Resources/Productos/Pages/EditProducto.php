@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Productos\Pages;
 
 use App\Filament\Resources\Productos\ProductoResource;
-use App\Filament\Resources\Productos\RelationManagers\AtributosRelationManager;
 use App\Filament\Resources\Productos\RelationManagers\ImagenesRelationManager;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
@@ -23,7 +22,6 @@ class EditProducto extends EditRecord
     {
         return [
             ImagenesRelationManager::class,
-            AtributosRelationManager::class,
         ];
     }
 }

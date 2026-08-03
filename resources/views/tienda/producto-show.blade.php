@@ -103,26 +103,6 @@
                 @endif
             </div>
 
-            {{-- Attributes --}}
-            @if($producto->atributos->isNotEmpty())
-                <div class="mb-6">
-                    <h3 class="text-sm font-semibold text-gray-700 mb-3">Opciones:</h3>
-                    <div class="flex flex-wrap gap-2" x-data="{ selected: null }">
-                        @foreach($producto->atributos as $atributo)
-                            <button type="button"
-                                @click="selected = {{ $atributo->id }}"
-                                :class="selected === {{ $atributo->id }} ? 'border-sky-500 bg-sky-50 text-sky-700' : 'border-gray-300 bg-white text-gray-600 hover:border-sky-300'"
-                                class="px-4 py-2 border rounded-lg text-sm font-medium transition-colors">
-                                {{ $atributo->valor }}
-                                @if($atributo->precio_adicional > 0)
-                                    <span class="text-xs text-gray-400">(+${{ number_format($atributo->precio_adicional, 0, ',', '.') }})</span>
-                                @endif
-                            </button>
-                        @endforeach
-                    </div>
-                </div>
-            @endif
-
             {{-- Add to Cart Form --}}
             <form action="{{ route('cart.store') }}" method="POST" class="mb-4" x-data="{ qty: 1 }">
                 @csrf
@@ -192,18 +172,6 @@
                                 <td class="py-2 font-medium text-gray-700">Stock</td>
                                 <td class="py-2">{{ $producto->stock > 0 ? $producto->stock . ' unidades' : 'Sin stock' }}</td>
                             </tr>
-                            @if($producto->atributos->isNotEmpty())
-                                <tr class="border-b border-gray-100">
-                                    <td class="py-2 font-medium text-gray-700">Opciones</td>
-                                    <td class="py-2">
-                                        <ul class="list-disc list-inside">
-                                            @foreach($producto->atributos as $atributo)
-                                                <li>{{ $atributo->tipo }}: {{ $atributo->valor }} @if($atributo->precio_adicional > 0)(+${{ number_format($atributo->precio_adicional, 0, ',', '.') }})@endif</li>
-                                            @endforeach
-                                        </ul>
-                                    </td>
-                                </tr>
-                            @endif
                         </tbody>
                     </table>
                 </div>

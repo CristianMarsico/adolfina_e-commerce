@@ -71,9 +71,6 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-medium text-gray-800 truncate">{{ $item['nombre'] }} <span class="text-gray-400">x{{ $item['cantidad'] }}</span></p>
-                                @if(!empty($item['atributo_nombre']))
-                                    <p class="text-xs text-gray-500">{{ $item['atributo_nombre'] }}</p>
-                                @endif
                             </div>
                             <p class="font-semibold text-gray-800">${{ number_format(($p && $p->precio_oferta ? $p->precio_oferta : $item['precio']) * $item['cantidad'], 0, ',', '.') }}</p>
                         </div>

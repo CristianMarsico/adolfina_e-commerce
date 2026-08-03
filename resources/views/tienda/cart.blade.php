@@ -47,9 +47,6 @@
                     {{-- Info --}}
                     <div class="flex-1 min-w-0">
                         <a href="{{ route('productos.show', $item['producto_id']) }}" class="font-semibold text-gray-800 hover:text-sky-600 transition-colors">{{ $item['nombre'] }}</a>
-                        @if(!empty($item['atributo_nombre']))
-                            <p class="text-xs text-gray-500 mt-0.5">{{ $item['atributo_nombre'] }}</p>
-                        @endif
                         <p class="text-sm text-gray-500 mt-1">${{ number_format($item['precio'], 0, ',', '.') }} c/u</p>
                     </div>
 

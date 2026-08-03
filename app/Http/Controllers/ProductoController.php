@@ -106,7 +106,7 @@ class ProductoController extends Controller
             abort(404);
         }
 
-        $producto->load('imagenes', 'atributos', 'categoria', 'promociones');
+        $producto->load('imagenes', 'categoria', 'promociones');
 
         $relacionados = Producto::where('activo', true)
             ->where('categoria_id', $producto->categoria_id)

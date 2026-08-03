@@ -11,7 +11,7 @@ class CartController extends Controller
     public function index()
     {
         if (auth()->check() && !auth()->user()->is_admin) {
-            $cartItems = CartItem::with('producto.atributos', 'producto.imagenPrincipal')
+            $cartItems = CartItem::with('producto.imagenPrincipal')
                 ->where('user_id', auth()->id())
                 ->get();
             $cart = [];
@@ -20,25 +20,13 @@ class CartController extends Controller
             foreach ($cartItems as $item) {
                 $producto = $item->producto;
                 if (!$producto) continue;
-                $key = $producto->id . '-' . ($item->atributo_id ?? '0');
-                $precio = (float) $producto->precio;
-                $atributoNombre = null;
-
-                if ($item->atributo_id) {
-                    $atributo = $producto->atributos->firstWhere('id', $item->atributo_id);
-                    if ($atributo) {
-                        $precio += (float) $atributo->precio_adicional;
-                        $atributoNombre = $atributo->valor;
-                    }
-                }
+                $key = (string) $producto->id;
 
                 $cart[$key] = [
                     'producto_id' => $producto->id,
                     'nombre' => $producto->nombre,
-                    'precio' => $precio,
+                    'precio' => (float) $producto->precio,
                     'cantidad' => $item->cantidad,
-                    'atributo_id' => $item->atributo_id,
-                    'atributo_nombre' => $atributoNombre,
                 ];
                 $productos->put($producto->id, $producto);
             }
@@ -62,22 +50,14 @@ class CartController extends Controller
         $request->validate([
             'producto_id' => 'required|exists:productos,id',
             'cantidad' => 'required|integer|min:1',
-            'atributo_id' => 'nullable|exists:producto_atributos,id',
         ]);
 
         $producto = Producto::findOrFail($request->producto_id);
 
         if (auth()->check() && !auth()->user()->is_admin) {
-            $query = CartItem::where('user_id', auth()->id())
-                ->where('producto_id', $producto->id);
-
-            if ($request->atributo_id) {
-                $query->where('atributo_id', $request->atributo_id);
-            } else {
-                $query->whereNull('atributo_id');
-            }
-
-            $existing = $query->first();
+            $existing = CartItem::where('user_id', auth()->id())
+                ->where('producto_id', $producto->id)
+                ->first();
 
             if ($existing) {
                 $existing->increment('cantidad', (int) $request->cantidad);
@@ -86,7 +66,6 @@ class CartController extends Controller
                     'user_id' => auth()->id(),
                     'producto_id' => $producto->id,
                     'cantidad' => (int) $request->cantidad,
-                    'atributo_id' => $request->atributo_id,
                 ]);
             }
 
@@ -100,18 +79,9 @@ class CartController extends Controller
             'nombre' => $producto->nombre,
             'precio' => (float) $producto->precio,
             'cantidad' => (int) $request->cantidad,
-            'atributo_id' => $request->atributo_id,
         ];
 
-        if ($request->atributo_id) {
-            $atributo = $producto->atributos()->find($request->atributo_id);
-            if ($atributo) {
-                $cartItem['precio'] += (float) $atributo->precio_adicional;
-                $cartItem['atributo_nombre'] = $atributo->valor;
-            }
-        }
-
-        $key = $producto->id . '-' . ($request->atributo_id ?? '0');
+        $key = (string) $producto->id;
 
         if (isset($cart[$key])) {
             $cart[$key]['cantidad'] += (int) $request->cantidad;
@@ -127,24 +97,9 @@ class CartController extends Controller
     public function update(Request $request, $key)
     {
         if (auth()->check() && !auth()->user()->is_admin) {
-            $parts = explode('-', $key);
-            $productoId = $parts[0] ?? null;
-            $atributoId = isset($parts[1]) && $parts[1] !== '0' ? $parts[1] : null;
-
-            if (!$productoId) {
-                return redirect()->route('cart.index');
-            }
-
-            $query = CartItem::where('user_id', auth()->id())
-                ->where('producto_id', $productoId);
-
-            if ($atributoId) {
-                $query->where('atributo_id', $atributoId);
-            } else {
-                $query->whereNull('atributo_id');
-            }
-
-            $query->update(['cantidad' => max(1, (int) $request->cantidad)]);
+            CartItem::where('user_id', auth()->id())
+                ->where('producto_id', $key)
+                ->update(['cantidad' => max(1, (int) $request->cantidad)]);
 
             return redirect()->route('cart.index');
         }
@@ -162,24 +117,9 @@ class CartController extends Controller
     public function destroy($key)
     {
         if (auth()->check() && !auth()->user()->is_admin) {
-            $parts = explode('-', $key);
-            $productoId = $parts[0] ?? null;
-            $atributoId = isset($parts[1]) && $parts[1] !== '0' ? $parts[1] : null;
-
-            if (!$productoId) {
-                return redirect()->route('cart.index');
-            }
-
-            $query = CartItem::where('user_id', auth()->id())
-                ->where('producto_id', $productoId);
-
-            if ($atributoId) {
-                $query->where('atributo_id', $atributoId);
-            } else {
-                $query->whereNull('atributo_id');
-            }
-
-            $query->delete();
+            CartItem::where('user_id', auth()->id())
+                ->where('producto_id', $key)
+                ->delete();
 
             return redirect()->route('cart.index');
         }
