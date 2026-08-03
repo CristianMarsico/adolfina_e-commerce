@@ -19,7 +19,7 @@
                 </a>
             </div>
             <div class="hidden md:flex justify-center">
-                <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=1200&q=80" alt="Productos para bebé" class="w-64 h-64 object-cover rounded-2xl shadow-xl">
+                <img src="{{ asset('images/hero.jpg') }}" alt="Productos para bebé" class="w-64 h-64 object-cover rounded-2xl shadow-xl">
             </div>
         </div>
     </div>
