@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('admin.ingresar.post') }}">
+    <form method="POST" action="{{ route('admin.ingresar.post') }}" data-turbo="false">
         @csrf
 
         <div>

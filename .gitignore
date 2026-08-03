@@ -16,9 +16,11 @@
 /public/build
 /public/hot
 /public/storage
+/public/vendor
 /storage/*.key
 /storage/pail
 /vendor
+/imagenesErrores
 Homestead.json
 Homestead.yaml
 Thumbs.db

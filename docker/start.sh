@@ -156,6 +156,7 @@ if (\$admin) {
 
 php artisan filament:clear-cached-components 2>&1 | tee -a /tmp/startup.log || true
 php artisan filament:assets 2>&1 | tee -a /tmp/startup.log || echo ">>> filament:assets FAILED" | tee -a /tmp/startup.log
+php artisan livewire:publish --assets 2>&1 | tee -a /tmp/startup.log || echo ">>> livewire:publish FAILED" | tee -a /tmp/startup.log
 php artisan filament:cache-components 2>&1 | tee -a /tmp/startup.log || echo ">>> filament:cache skipped" | tee -a /tmp/startup.log
 
 # Rebuild config and view caches AFTER filament setup
