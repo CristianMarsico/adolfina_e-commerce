@@ -76,6 +76,23 @@ if [ -f "database/panalera.sql" ]; then
         echo ">>> Importing panalera.sql (database is empty)..." | tee -a /tmp/startup.log
         PGPASSWORD="${DB_PASSWORD}" psql -h "${DB_HOST}" -U "${DB_USERNAME}" -d "${DB_DATABASE}" -f database/panalera.sql 2>&1 | tee -a /tmp/startup.log
         echo ">>> DIAGNOSTIC: psql exit code: $?" | tee -a /tmp/startup.log
+
+        # Tables now come from the dump, so mark those migrations as ran
+        # (only here; on normal boots new migrations must run via `migrate`).
+        echo ">>> Marking imported dump migrations as ran..." | tee -a /tmp/startup.log
+        php artisan tinker --execute="
+        \$files = glob(database_path('migrations/*.php'));
+        \$count = 0;
+        foreach (\$files as \$file) {
+            \$name = basename(\$file, '.php');
+            if (!DB::table('migrations')->where('migration', \$name)->exists()) {
+                DB::table('migrations')->insert(['migration' => \$name, 'batch' => 1]);
+                \$count++;
+            }
+        }
+        echo \"Marked \$count new migrations\n\";
+        " 2>&1 | tee -a /tmp/startup.log
+
         TABLE_COUNT_AFTER=$(php artisan tinker --execute="echo DB::select('SELECT count(*) as c FROM information_schema.tables WHERE table_schema = \'public\'')[0]->c;" 2>/dev/null || echo "0")
         echo ">>> DIAGNOSTIC: TABLE_COUNT after import: ${TABLE_COUNT_AFTER}" | tee -a /tmp/startup.log
     else
@@ -84,21 +101,6 @@ if [ -f "database/panalera.sql" ]; then
 else
     echo ">>> WARNING: panalera.sql NOT FOUND in container!" | tee -a /tmp/startup.log
 fi
-
-# Mark all migrations as ran (tables exist from SQL import)
-echo ">>> Marking migrations as ran..." | tee -a /tmp/startup.log
-php artisan tinker --execute="
-\$files = glob(database_path('migrations/*.php'));
-\$count = 0;
-foreach (\$files as \$file) {
-    \$name = basename(\$file, '.php');
-    if (!DB::table('migrations')->where('migration', \$name)->exists()) {
-        DB::table('migrations')->insert(['migration' => \$name, 'batch' => 1]);
-        \$count++;
-    }
-}
-echo \"Marked \$count new migrations\n\";
-" 2>&1 | tee -a /tmp/startup.log
 
 echo ">>> Running migrations..." | tee -a /tmp/startup.log
 php artisan migrate --force 2>&1 | tee -a /tmp/startup.log
