@@ -19,7 +19,7 @@
                 </a>
             </div>
             <div class="hidden md:flex justify-center">
-                <img src="{{ asset('images/hero.jpg') }}" alt="Productos para bebé" class="w-64 h-64 object-cover rounded-2xl shadow-xl">
+                <img src="{{ asset('images/hero.jpg') }}" alt="Productos para bebé" class="w-72 h-72 object-cover rounded-2xl shadow-xl">
             </div>
         </div>
     </div>
@@ -67,10 +67,8 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         @foreach($categorias as $categoria)
             <a href="{{ route('productos.categoria', $categoria) }}" class="group relative bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-                <div class="h-32 bg-gradient-to-br from-sky-100 to-teal-50 flex items-center justify-center">
-                    <svg class="w-12 h-12 text-sky-400 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                    </svg>
+                <div class="h-32 bg-gradient-to-br from-sky-100 to-teal-50 overflow-hidden">
+                    <img src="{{ asset('images/categorias/' . \Illuminate\Support\Str::slug($categoria->nombre) . '.jpg') }}" alt="{{ $categoria->nombre }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 </div>
                 <div class="p-4">
                     <h3 class="font-semibold text-gray-800 group-hover:text-sky-600 transition-colors">{{ $categoria->nombre }}</h3>
@@ -82,6 +80,76 @@
         @endforeach
     </div>
 </section>
+
+{{-- Brands --}}
+@if($marcas->isNotEmpty())
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
+         x-data="{
+            timer: null,
+            step() {
+                const track = this.$refs.track;
+                const slide = track.querySelector('.snap-start');
+                if (!slide) return 0;
+                return slide.offsetWidth + 16;
+            },
+            next() {
+                const track = this.$refs.track;
+                if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+                    track.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    track.scrollBy({ left: this.step(), behavior: 'smooth' });
+                }
+            },
+            prev() {
+                this.$refs.track.scrollBy({ left: -this.step(), behavior: 'smooth' });
+            },
+            start() {
+                this.stop();
+                this.timer = setInterval(() => this.next(), 3500);
+            },
+            stop() {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                    this.timer = null;
+                }
+            },
+            init() {
+                this.start();
+            }
+         }"
+         @mouseenter="stop()" @mouseleave="start()"
+         @touchstart.passive="stop()" @touchend.passive="start()">
+    <h2 class="text-center text-2xl md:text-3xl font-bold text-gray-800 mb-8">Nuestras marcas</h2>
+
+    <div class="relative max-w-5xl mx-auto">
+        <div x-ref="track" class="flex overflow-x-auto gap-4 snap-x snap-mandatory scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            @foreach($marcas as $marca)
+                <a href="{{ route('productos.catalogo', ['marcas' => [$marca->id]]) }}" title="{{ $marca->nombre }}" class="group shrink-0 snap-start flex items-center justify-center bg-white w-40 sm:w-44 h-24 sm:h-28 rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-sky-200 hover:-translate-y-1 transition-all duration-300 p-4">
+                    @if($marca->imagen)
+                        <img src="{{ asset('storage/' . $marca->imagen) }}" alt="{{ $marca->nombre }}" class="max-h-full max-w-full object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
+                    @else
+                        <span class="text-lg font-semibold text-gray-500 group-hover:text-sky-600 transition-colors text-center">{{ $marca->nombre }}</span>
+                    @endif
+                </a>
+            @endforeach
+        </div>
+
+        <div class="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-gray-50 to-transparent"></div>
+        <div class="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-gray-50 to-transparent"></div>
+
+        <button type="button" @click="prev()" aria-label="Anterior" class="hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 items-center justify-center w-10 h-10 rounded-full bg-white border border-gray-200 shadow-md hover:bg-sky-50 hover:text-sky-600 transition-colors z-10">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+        </button>
+        <button type="button" @click="next()" aria-label="Siguiente" class="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 items-center justify-center w-10 h-10 rounded-full bg-white border border-gray-200 shadow-md hover:bg-sky-50 hover:text-sky-600 transition-colors z-10">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+        </button>
+    </div>
+</section>
+@endif
 
 {{-- New Arrivals --}}
 @if($nuevos->isNotEmpty())

@@ -34,11 +34,18 @@ class ProductoController extends Controller
             }])
             ->get();
 
+        $marcas = Marca::where('activo', true)
+            ->withCount(['productos' => function ($q) {
+                $q->where('activo', true);
+            }])
+            ->orderBy('nombre')
+            ->get();
+
         $promociones = Promocion::activa()
             ->with(['productos' => fn($q) => $q->where('activo', true)->with('imagenPrincipal', 'promociones')])
             ->get();
 
-        return view('tienda.home', compact('destacados', 'nuevos', 'categorias', 'promociones'));
+        return view('tienda.home', compact('destacados', 'nuevos', 'categorias', 'marcas', 'promociones'));
     }
 
     public function catalogo(Request $request)

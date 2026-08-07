@@ -17,6 +17,10 @@
         <div class="bg-green-50 border border-green-200 text-green-700 px-5 py-4 rounded-lg mb-8 text-sm">{{ session('success') }}</div>
     @endif
 
+    @if($errors->any())
+        <div class="bg-red-50 border border-red-200 text-red-700 px-5 py-4 rounded-lg mb-8 text-sm">{{ $errors->first() }}</div>
+    @endif
+
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
         {{-- Form --}}
         <div class="lg:col-span-3">

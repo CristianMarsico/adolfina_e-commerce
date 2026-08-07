@@ -17,10 +17,8 @@
     <body data-turbo="false" class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gradient-to-br from-sky-50 via-white to-blue-50">
             <div class="mb-6">
-                <a href="{{ route('home') }}" class="flex items-center gap-2">
-                    <svg class="w-10 h-10 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/>
-                    </svg>
+                <a href="{{ route('home') }}" class="flex flex-col items-center gap-2">
+                    <img src="{{ asset('images/logo.jpg') }}" alt="{{ $configuracion->nombre_negocio ?? 'Pañalera' }}" class="h-20 w-20 rounded-full object-cover ring-4 ring-sky-100 shadow">
                     <span class="text-2xl font-bold text-sky-600">{{ $configuracion->nombre_negocio ?? 'Pañalera' }}</span>
                 </a>
             </div>
