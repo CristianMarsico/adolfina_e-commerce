@@ -23,6 +23,8 @@ class Pedido extends Model
         'mp_payment_id',
         'mp_status',
         'mp_merchant_order_id',
+        'mp_qr_data',
+        'mp_order_id',
     ];
 
     protected function casts(): array

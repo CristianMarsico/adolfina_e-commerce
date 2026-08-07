@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class CheckoutController extends Controller
 {
@@ -157,54 +158,27 @@ class CheckoutController extends Controller
                 $pedido->items()->create($item);
             }
 
-            if ($mp->isTestMode()) {
-                $pedido->update([
-                    'mp_preference_id' => 'TEST_' . $pedido->id . '_' . time(),
-                    'estado' => 'pagado',
-                    'mp_payment_id' => 'TEST_' . $pedido->id,
-                    'mp_status' => 'approved',
-                ]);
-
-                foreach ($itemsPedido as $item) {
-                    $producto = \App\Models\Producto::find($item['producto_id']);
-                    if ($producto && $producto->stock !== null) {
-                        $producto->decrement('stock', $item['cantidad']);
-                    }
-                }
-
-            if (Auth::check() && !Auth::user()->is_admin) {
-                \App\Models\CartItem::where('user_id', Auth::id())->delete();
-                session()->forget('cart');
-            } else {
-                session()->forget('cart');
-            }
-
-            DB::commit();
-
-            return redirect()->route('checkout.exito', [$pedido, 'token' => $token]);
-        }
-
-        $preferencia = $mp->crearPreferencia(
+            $qr = $mp->crearPedidoQR(
                 $mpItems,
-                ['name' => $request->nombre, 'email' => $request->email],
+                $total,
                 (string) $pedido->id,
-                [
-                    'success' => route('checkout.exito', [$pedido, 'token' => $token]),
-                    'failure' => route('checkout.falla', [$pedido, 'token' => $token]),
-                    'pending' => route('checkout.pendiente', [$pedido, 'token' => $token]),
-                    'notification' => route('webhook.mp'),
-                ]
+                route('webhook.mp'),
             );
 
-            $pedido->update(['mp_preference_id' => $preferencia->id]);
+            $pedido->update([
+                'mp_qr_data' => $qr['qr_data'],
+                'mp_order_id' => $qr['id'] ?? null,
+            ]);
 
             DB::commit();
 
             $pedido->load('items');
 
+            $qrSvg = QrCode::format('svg')->size(256)->margin(1)->generate($qr['qr_data']);
+
             return view('tienda.pagando', [
                 'pedido' => $pedido,
-                'initPoint' => $preferencia->init_point,
+                'qrSvg' => $qrSvg,
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -212,21 +186,76 @@ class CheckoutController extends Controller
         }
     }
 
-    public function testPagar(Request $request, Pedido $pedido)
+    public function estado(Request $request, Pedido $pedido, MercadoPagoService $mp)
     {
-        abort_unless(config('services.mercadopago.sandbox'), 404);
+        abort_unless($this->autorizarPedido($pedido, $request), 403);
 
-        if (!$pedido->token || $request->token !== $pedido->token) {
-            abort(403);
+        if ($pedido->estado !== 'pagado' && $pedido->mp_order_id) {
+            $order = $mp->obtenerOrdenQR($pedido->mp_order_id);
+
+            if ($order) {
+                $payments = $order['payments'] ?? [];
+
+                $approved = false;
+                $approvedId = null;
+                $terminal = count($payments) > 0;
+
+                foreach ($payments as $payment) {
+                    $status = $payment['status'] ?? null;
+
+                    if ($status === 'approved') {
+                        $approved = true;
+                        $approvedId = $payment['id'] ?? null;
+                    }
+
+                    if ($status !== 'rejected' && $status !== 'cancelled' && $status !== 'refunded' && $status !== 'charged_back') {
+                        $terminal = false;
+                    }
+                }
+
+                if ($approved) {
+                    $this->marcarPagado($pedido, (string) $approvedId, $pedido->mp_order_id);
+                } elseif ($terminal) {
+                    $pedido->update([
+                        'mp_status' => 'rejected',
+                        'estado' => 'fallado',
+                    ]);
+                }
+            }
+
+            $pedido->refresh();
         }
 
+        return response()->json([
+            'estado' => $pedido->estado,
+            'pagado' => $pedido->estado === 'pagado',
+        ]);
+    }
+
+    private function marcarPagado(Pedido $pedido, string $paymentId, ?string $orderId): void
+    {
+        $estadoAnterior = $pedido->estado;
+
         $pedido->update([
-            'estado' => 'pagado',
-            'mp_payment_id' => 'TEST_' . $pedido->id,
+            'mp_payment_id' => $paymentId,
             'mp_status' => 'approved',
+            'mp_merchant_order_id' => $orderId,
+            'estado' => 'pagado',
         ]);
 
-        return redirect()->route('checkout.exito', [$pedido, 'token' => $pedido->token]);
+        if ($estadoAnterior !== 'pagado') {
+            $this->descontarStock($pedido);
+        }
+    }
+
+    private function descontarStock(Pedido $pedido): void
+    {
+        foreach ($pedido->items as $item) {
+            $producto = \App\Models\Producto::find($item->producto_id);
+            if ($producto && $producto->stock !== null) {
+                $producto->decrement('stock', $item->cantidad);
+            }
+        }
     }
 
     private function autorizarPedido(Pedido $pedido, Request $request): bool

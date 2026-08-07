@@ -40,6 +40,7 @@ return [
         'access_token' => env('MERCADO_PAGO_ACCESS_TOKEN'),
         'sandbox' => env('MERCADO_PAGO_SANDBOX', true),
         'webhook_secret' => env('MERCADO_PAGO_WEBHOOK_SECRET'),
+        'external_pos_id' => env('MERCADO_PAGO_EXTERNAL_POS_ID'),
     ],
 
 ];

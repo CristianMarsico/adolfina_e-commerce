@@ -30,47 +30,160 @@ class WebhookController extends Controller
             return response('OK', 200);
         }
 
-        if ($topic === 'payment' || $topic === 'merchant_order') {
-            $payment = $mp->obtenerPago($paymentId);
-
-            if (!$payment) {
-                return response('OK', 200);
-            }
-
-            $externalRef = $payment->external_reference ?? null;
-
-            if ($externalRef) {
-                $pedido = Pedido::find($externalRef);
-
-                if ($pedido) {
-                    $mpStatus = $payment->status;
-                    $estadoAnterior = $pedido->estado;
-
-                    $pedido->update([
-                        'mp_payment_id' => $paymentId,
-                        'mp_status' => $mpStatus,
-                        'mp_merchant_order_id' => $payment->merchant_order_id,
-                        'estado' => match ($mpStatus) {
-                            'approved' => 'pagado',
-                            'pending', 'in_process', 'in_mediation' => 'pendiente',
-                            'rejected', 'cancelled', 'refunded', 'charged_back' => 'fallado',
-                            default => 'pendiente',
-                        },
-                    ]);
-
-                    if ($mpStatus === 'approved' && $estadoAnterior !== 'pagado') {
-                        foreach ($pedido->items as $item) {
-                            $producto = \App\Models\Producto::find($item->producto_id);
-                            if ($producto && $producto->stock !== null) {
-                                $producto->decrement('stock', $item->cantidad);
-                            }
-                        }
-                    }
-                }
-            }
+        if ($topic === 'merchant_order') {
+            $this->procesarMerchantOrder($mp, (string) $paymentId);
+        } elseif ($topic === 'payment') {
+            $this->procesarPago($mp, (string) $paymentId);
+        } elseif ($topic === 'order') {
+            $this->procesarOrden($mp, (string) $paymentId);
         }
 
         return response('OK', 200);
+    }
+
+    private function procesarMerchantOrder(MercadoPagoService $mp, string $merchantOrderId): void
+    {
+        $order = $mp->obtenerMerchantOrder($merchantOrderId);
+
+        if (!$order || !$order->external_reference) {
+            return;
+        }
+
+        $pedido = Pedido::find($order->external_reference);
+
+        if (!$pedido) {
+            return;
+        }
+
+        $payments = $order->payments ?? [];
+
+        $approved = false;
+        $approvedId = null;
+        $terminal = count($payments) > 0;
+
+        foreach ($payments as $payment) {
+            $status = $payment->status ?? null;
+
+            if ($status === 'approved') {
+                $approved = true;
+                $approvedId = $payment->id;
+            }
+
+            if ($status !== 'rejected' && $status !== 'cancelled' && $status !== 'refunded' && $status !== 'charged_back') {
+                $terminal = false;
+            }
+        }
+
+        if ($approved) {
+            $this->marcarPagado($pedido, (string) $approvedId, (string) $merchantOrderId);
+        } elseif ($terminal) {
+            $pedido->update([
+                'mp_status' => 'rejected',
+                'estado' => 'fallado',
+            ]);
+        }
+    }
+
+    private function procesarOrden(MercadoPagoService $mp, string $orderId): void
+    {
+        $order = $mp->obtenerOrdenQR($orderId);
+
+        if (!$order || empty($order['external_reference'])) {
+            return;
+        }
+
+        $pedido = Pedido::find($order['external_reference']);
+
+        if (!$pedido) {
+            return;
+        }
+
+        $payments = $order['payments'] ?? [];
+
+        $approved = false;
+        $approvedId = null;
+        $terminal = count($payments) > 0;
+
+        foreach ($payments as $payment) {
+            $status = $payment['status'] ?? null;
+
+            if ($status === 'approved') {
+                $approved = true;
+                $approvedId = $payment['id'] ?? null;
+            }
+
+            if ($status !== 'rejected' && $status !== 'cancelled' && $status !== 'refunded' && $status !== 'charged_back') {
+                $terminal = false;
+            }
+        }
+
+        if ($approved) {
+            $this->marcarPagado($pedido, (string) $approvedId, $orderId);
+        } elseif ($terminal) {
+            $pedido->update([
+                'mp_status' => 'rejected',
+                'estado' => 'fallado',
+            ]);
+        }
+    }
+
+    private function procesarPago(MercadoPagoService $mp, string $paymentId): void
+    {
+        $payment = $mp->obtenerPago($paymentId);
+
+        if (!$payment || !$payment->external_reference) {
+            return;
+        }
+
+        $pedido = Pedido::find($payment->external_reference);
+
+        if (!$pedido) {
+            return;
+        }
+
+        $mpStatus = $payment->status;
+
+        $pedido->update([
+            'mp_payment_id' => $paymentId,
+            'mp_status' => $mpStatus,
+            'mp_merchant_order_id' => $payment->merchant_order_id,
+            'estado' => match ($mpStatus) {
+                'approved' => 'pagado',
+                'pending', 'in_process', 'in_mediation' => 'pendiente',
+                'rejected', 'cancelled', 'refunded', 'charged_back' => 'fallado',
+                default => 'pendiente',
+            },
+        ]);
+
+        if ($mpStatus === 'approved') {
+            $this->descontarStock($pedido);
+        }
+    }
+
+    private function marcarPagado(Pedido $pedido, string $paymentId, ?string $merchantOrderId): void
+    {
+        $estadoAnterior = $pedido->estado;
+
+        $pedido->update([
+            'mp_payment_id' => $paymentId,
+            'mp_status' => 'approved',
+            'mp_merchant_order_id' => $merchantOrderId,
+            'estado' => 'pagado',
+        ]);
+
+        if ($estadoAnterior !== 'pagado') {
+            $this->descontarStock($pedido);
+        }
+    }
+
+    private function descontarStock(Pedido $pedido): void
+    {
+        foreach ($pedido->items as $item) {
+            $producto = \App\Models\Producto::find($item->producto_id);
+            if ($producto && $producto->stock !== null) {
+                $producto->decrement('stock', $item->cantidad);
+            }
+        }
     }
 
     private function verifySignature(string $header, string $secret, Request $request): bool
