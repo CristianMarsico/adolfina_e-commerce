@@ -24,7 +24,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: cache; Type: TABLE; Schema: public; Owner: -
+-- Name: cache; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.cache (
@@ -34,8 +34,10 @@ CREATE TABLE public.cache (
 );
 
 
+ALTER TABLE public.cache OWNER TO postgres;
+
 --
--- Name: cache_locks; Type: TABLE; Schema: public; Owner: -
+-- Name: cache_locks; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.cache_locks (
@@ -45,8 +47,10 @@ CREATE TABLE public.cache_locks (
 );
 
 
+ALTER TABLE public.cache_locks OWNER TO postgres;
+
 --
--- Name: cart_items; Type: TABLE; Schema: public; Owner: -
+-- Name: cart_items; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.cart_items (
@@ -59,8 +63,10 @@ CREATE TABLE public.cart_items (
 );
 
 
+ALTER TABLE public.cart_items OWNER TO postgres;
+
 --
--- Name: cart_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: cart_items_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.cart_items_id_seq
@@ -71,15 +77,17 @@ CREATE SEQUENCE public.cart_items_id_seq
     CACHE 1;
 
 
+ALTER SEQUENCE public.cart_items_id_seq OWNER TO postgres;
+
 --
--- Name: cart_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: cart_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.cart_items_id_seq OWNED BY public.cart_items.id;
 
 
 --
--- Name: categorias; Type: TABLE; Schema: public; Owner: -
+-- Name: categorias; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.categorias (
@@ -91,8 +99,10 @@ CREATE TABLE public.categorias (
 );
 
 
+ALTER TABLE public.categorias OWNER TO postgres;
+
 --
--- Name: categorias_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: categorias_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.categorias_id_seq
@@ -103,15 +113,17 @@ CREATE SEQUENCE public.categorias_id_seq
     CACHE 1;
 
 
+ALTER SEQUENCE public.categorias_id_seq OWNER TO postgres;
+
 --
--- Name: categorias_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: categorias_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.categorias_id_seq OWNED BY public.categorias.id;
 
 
 --
--- Name: configuraciones; Type: TABLE; Schema: public; Owner: -
+-- Name: configuraciones; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.configuraciones (
@@ -130,8 +142,10 @@ CREATE TABLE public.configuraciones (
 );
 
 
+ALTER TABLE public.configuraciones OWNER TO postgres;
+
 --
--- Name: configuraciones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: configuraciones_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.configuraciones_id_seq
@@ -142,15 +156,17 @@ CREATE SEQUENCE public.configuraciones_id_seq
     CACHE 1;
 
 
+ALTER SEQUENCE public.configuraciones_id_seq OWNER TO postgres;
+
 --
--- Name: configuraciones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: configuraciones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.configuraciones_id_seq OWNED BY public.configuraciones.id;
 
 
 --
--- Name: etapas; Type: TABLE; Schema: public; Owner: -
+-- Name: etapas; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.etapas (
@@ -162,8 +178,10 @@ CREATE TABLE public.etapas (
 );
 
 
+ALTER TABLE public.etapas OWNER TO postgres;
+
 --
--- Name: etapas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: etapas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.etapas_id_seq
@@ -174,15 +192,17 @@ CREATE SEQUENCE public.etapas_id_seq
     CACHE 1;
 
 
+ALTER SEQUENCE public.etapas_id_seq OWNER TO postgres;
+
 --
--- Name: etapas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: etapas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.etapas_id_seq OWNED BY public.etapas.id;
 
 
 --
--- Name: failed_jobs; Type: TABLE; Schema: public; Owner: -
+-- Name: failed_jobs; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.failed_jobs (
@@ -196,8 +216,10 @@ CREATE TABLE public.failed_jobs (
 );
 
 
+ALTER TABLE public.failed_jobs OWNER TO postgres;
+
 --
--- Name: failed_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: failed_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.failed_jobs_id_seq
@@ -208,15 +230,17 @@ CREATE SEQUENCE public.failed_jobs_id_seq
     CACHE 1;
 
 
+ALTER SEQUENCE public.failed_jobs_id_seq OWNER TO postgres;
+
 --
--- Name: failed_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: failed_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.failed_jobs_id_seq OWNED BY public.failed_jobs.id;
 
 
 --
--- Name: job_batches; Type: TABLE; Schema: public; Owner: -
+-- Name: job_batches; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.job_batches (
@@ -233,8 +257,10 @@ CREATE TABLE public.job_batches (
 );
 
 
+ALTER TABLE public.job_batches OWNER TO postgres;
+
 --
--- Name: jobs; Type: TABLE; Schema: public; Owner: -
+-- Name: jobs; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.jobs (
@@ -248,8 +274,10 @@ CREATE TABLE public.jobs (
 );
 
 
+ALTER TABLE public.jobs OWNER TO postgres;
+
 --
--- Name: jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.jobs_id_seq
@@ -260,15 +288,17 @@ CREATE SEQUENCE public.jobs_id_seq
     CACHE 1;
 
 
+ALTER SEQUENCE public.jobs_id_seq OWNER TO postgres;
+
 --
--- Name: jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.jobs_id_seq OWNED BY public.jobs.id;
 
 
 --
--- Name: marcas; Type: TABLE; Schema: public; Owner: -
+-- Name: marcas; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.marcas (
@@ -281,8 +311,10 @@ CREATE TABLE public.marcas (
 );
 
 
+ALTER TABLE public.marcas OWNER TO postgres;
+
 --
--- Name: marcas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: marcas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.marcas_id_seq
@@ -293,15 +325,17 @@ CREATE SEQUENCE public.marcas_id_seq
     CACHE 1;
 
 
+ALTER SEQUENCE public.marcas_id_seq OWNER TO postgres;
+
 --
--- Name: marcas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: marcas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.marcas_id_seq OWNED BY public.marcas.id;
 
 
 --
--- Name: migrations; Type: TABLE; Schema: public; Owner: -
+-- Name: migrations; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.migrations (
@@ -311,8 +345,10 @@ CREATE TABLE public.migrations (
 );
 
 
+ALTER TABLE public.migrations OWNER TO postgres;
+
 --
--- Name: migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.migrations_id_seq
@@ -324,15 +360,17 @@ CREATE SEQUENCE public.migrations_id_seq
     CACHE 1;
 
 
+ALTER SEQUENCE public.migrations_id_seq OWNER TO postgres;
+
 --
--- Name: migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.migrations_id_seq OWNED BY public.migrations.id;
 
 
 --
--- Name: password_reset_tokens; Type: TABLE; Schema: public; Owner: -
+-- Name: password_reset_tokens; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.password_reset_tokens (
@@ -342,8 +380,10 @@ CREATE TABLE public.password_reset_tokens (
 );
 
 
+ALTER TABLE public.password_reset_tokens OWNER TO postgres;
+
 --
--- Name: pedido_items; Type: TABLE; Schema: public; Owner: -
+-- Name: pedido_items; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.pedido_items (
@@ -359,8 +399,10 @@ CREATE TABLE public.pedido_items (
 );
 
 
+ALTER TABLE public.pedido_items OWNER TO postgres;
+
 --
--- Name: pedido_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: pedido_items_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.pedido_items_id_seq
@@ -371,15 +413,17 @@ CREATE SEQUENCE public.pedido_items_id_seq
     CACHE 1;
 
 
+ALTER SEQUENCE public.pedido_items_id_seq OWNER TO postgres;
+
 --
--- Name: pedido_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: pedido_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.pedido_items_id_seq OWNED BY public.pedido_items.id;
 
 
 --
--- Name: pedidos; Type: TABLE; Schema: public; Owner: -
+-- Name: pedidos; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.pedidos (
@@ -401,12 +445,16 @@ CREATE TABLE public.pedidos (
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone,
     token character varying(64),
-    email character varying(255)
+    email character varying(255),
+    mp_qr_data text,
+    mp_order_id character varying(255)
 );
 
 
+ALTER TABLE public.pedidos OWNER TO postgres;
+
 --
--- Name: pedidos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: pedidos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.pedidos_id_seq
@@ -417,15 +465,17 @@ CREATE SEQUENCE public.pedidos_id_seq
     CACHE 1;
 
 
+ALTER SEQUENCE public.pedidos_id_seq OWNER TO postgres;
+
 --
--- Name: pedidos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: pedidos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.pedidos_id_seq OWNED BY public.pedidos.id;
 
 
 --
--- Name: producto_imagens; Type: TABLE; Schema: public; Owner: -
+-- Name: producto_imagens; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.producto_imagens (
@@ -438,8 +488,10 @@ CREATE TABLE public.producto_imagens (
 );
 
 
+ALTER TABLE public.producto_imagens OWNER TO postgres;
+
 --
--- Name: producto_imagens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: producto_imagens_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.producto_imagens_id_seq
@@ -450,15 +502,17 @@ CREATE SEQUENCE public.producto_imagens_id_seq
     CACHE 1;
 
 
+ALTER SEQUENCE public.producto_imagens_id_seq OWNER TO postgres;
+
 --
--- Name: producto_imagens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: producto_imagens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.producto_imagens_id_seq OWNED BY public.producto_imagens.id;
 
 
 --
--- Name: productos; Type: TABLE; Schema: public; Owner: -
+-- Name: productos; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.productos (
@@ -479,8 +533,10 @@ CREATE TABLE public.productos (
 );
 
 
+ALTER TABLE public.productos OWNER TO postgres;
+
 --
--- Name: productos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: productos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.productos_id_seq
@@ -491,15 +547,17 @@ CREATE SEQUENCE public.productos_id_seq
     CACHE 1;
 
 
+ALTER SEQUENCE public.productos_id_seq OWNER TO postgres;
+
 --
--- Name: productos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: productos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.productos_id_seq OWNED BY public.productos.id;
 
 
 --
--- Name: promocion_producto; Type: TABLE; Schema: public; Owner: -
+-- Name: promocion_producto; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.promocion_producto (
@@ -511,8 +569,10 @@ CREATE TABLE public.promocion_producto (
 );
 
 
+ALTER TABLE public.promocion_producto OWNER TO postgres;
+
 --
--- Name: promocion_producto_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: promocion_producto_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.promocion_producto_id_seq
@@ -523,15 +583,17 @@ CREATE SEQUENCE public.promocion_producto_id_seq
     CACHE 1;
 
 
+ALTER SEQUENCE public.promocion_producto_id_seq OWNER TO postgres;
+
 --
--- Name: promocion_producto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: promocion_producto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.promocion_producto_id_seq OWNED BY public.promocion_producto.id;
 
 
 --
--- Name: promociones; Type: TABLE; Schema: public; Owner: -
+-- Name: promociones; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.promociones (
@@ -549,8 +611,10 @@ CREATE TABLE public.promociones (
 );
 
 
+ALTER TABLE public.promociones OWNER TO postgres;
+
 --
--- Name: promociones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: promociones_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.promociones_id_seq
@@ -561,15 +625,17 @@ CREATE SEQUENCE public.promociones_id_seq
     CACHE 1;
 
 
+ALTER SEQUENCE public.promociones_id_seq OWNER TO postgres;
+
 --
--- Name: promociones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: promociones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.promociones_id_seq OWNED BY public.promociones.id;
 
 
 --
--- Name: sessions; Type: TABLE; Schema: public; Owner: -
+-- Name: sessions; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sessions (
@@ -582,8 +648,10 @@ CREATE TABLE public.sessions (
 );
 
 
+ALTER TABLE public.sessions OWNER TO postgres;
+
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.users (
@@ -601,8 +669,10 @@ CREATE TABLE public.users (
 );
 
 
+ALTER TABLE public.users OWNER TO postgres;
+
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.users_id_seq
@@ -613,130 +683,134 @@ CREATE SEQUENCE public.users_id_seq
     CACHE 1;
 
 
+ALTER SEQUENCE public.users_id_seq OWNER TO postgres;
+
 --
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: cart_items id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: cart_items id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cart_items ALTER COLUMN id SET DEFAULT nextval('public.cart_items_id_seq'::regclass);
 
 
 --
--- Name: categorias id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: categorias id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.categorias ALTER COLUMN id SET DEFAULT nextval('public.categorias_id_seq'::regclass);
 
 
 --
--- Name: configuraciones id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: configuraciones id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.configuraciones ALTER COLUMN id SET DEFAULT nextval('public.configuraciones_id_seq'::regclass);
 
 
 --
--- Name: etapas id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: etapas id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.etapas ALTER COLUMN id SET DEFAULT nextval('public.etapas_id_seq'::regclass);
 
 
 --
--- Name: failed_jobs id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: failed_jobs id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.failed_jobs ALTER COLUMN id SET DEFAULT nextval('public.failed_jobs_id_seq'::regclass);
 
 
 --
--- Name: jobs id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: jobs id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.jobs ALTER COLUMN id SET DEFAULT nextval('public.jobs_id_seq'::regclass);
 
 
 --
--- Name: marcas id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: marcas id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.marcas ALTER COLUMN id SET DEFAULT nextval('public.marcas_id_seq'::regclass);
 
 
 --
--- Name: migrations id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: migrations id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.migrations ALTER COLUMN id SET DEFAULT nextval('public.migrations_id_seq'::regclass);
 
 
 --
--- Name: pedido_items id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pedido_items id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pedido_items ALTER COLUMN id SET DEFAULT nextval('public.pedido_items_id_seq'::regclass);
 
 
 --
--- Name: pedidos id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pedidos id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pedidos ALTER COLUMN id SET DEFAULT nextval('public.pedidos_id_seq'::regclass);
 
 
 --
--- Name: producto_imagens id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: producto_imagens id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.producto_imagens ALTER COLUMN id SET DEFAULT nextval('public.producto_imagens_id_seq'::regclass);
 
 
 --
--- Name: productos id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: productos id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.productos ALTER COLUMN id SET DEFAULT nextval('public.productos_id_seq'::regclass);
 
 
 --
--- Name: promocion_producto id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: promocion_producto id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.promocion_producto ALTER COLUMN id SET DEFAULT nextval('public.promocion_producto_id_seq'::regclass);
 
 
 --
--- Name: promociones id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: promociones id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.promociones ALTER COLUMN id SET DEFAULT nextval('public.promociones_id_seq'::regclass);
 
 
 --
--- Name: users id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
--- Data for Name: cache; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: cache; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.cache (key, value, expiration) FROM stdin;
 laravel-cache-livewire-rate-limiter:16d36dff9abd246c67dfac3e63b993a169af77e6:timer	i:1783791378;	1783791378
 laravel-cache-livewire-rate-limiter:16d36dff9abd246c67dfac3e63b993a169af77e6	i:1;	1783791378
+laravel-cache-356a192b7913b04c54574d18c28d46e6395428ab:timer	i:1786051362;	1786051362
+laravel-cache-356a192b7913b04c54574d18c28d46e6395428ab	i:4;	1786051362
 \.
 
 
 --
--- Data for Name: cache_locks; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: cache_locks; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.cache_locks (key, owner, expiration) FROM stdin;
@@ -744,7 +818,7 @@ COPY public.cache_locks (key, owner, expiration) FROM stdin;
 
 
 --
--- Data for Name: cart_items; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: cart_items; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.cart_items (id, user_id, producto_id, cantidad, created_at, updated_at) FROM stdin;
@@ -753,7 +827,7 @@ COPY public.cart_items (id, user_id, producto_id, cantidad, created_at, updated_
 
 
 --
--- Data for Name: categorias; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: categorias; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.categorias (id, nombre, activo, created_at, updated_at) FROM stdin;
@@ -766,16 +840,16 @@ COPY public.categorias (id, nombre, activo, created_at, updated_at) FROM stdin;
 
 
 --
--- Data for Name: configuraciones; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: configuraciones; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.configuraciones (id, nombre_negocio, descripcion, direccion, telefono, email, whatsapp, instagram, facebook, horarios, created_at, updated_at) FROM stdin;
-1	Adolfina	Tu tienda de confianza para el cuidado de tu bebé. Pañales, ropa, higiene y más.	\N	\N	contacto@panalera.com	541112345678	https://www.google.com	https://www.google.com	de 8 a 21	2026-07-06 20:45:02	2026-07-07 00:23:43
+1	Adolfina	Tu tienda de confianza para el cuidado de tu bebé. Pañales, ropa, higiene y más.	\N	\N	cristianmarsico84@gmail.com	541112345678	https://www.google.com	https://www.google.com	de 8 a 21	2026-07-06 20:45:02	2026-08-06 21:32:17
 \.
 
 
 --
--- Data for Name: etapas; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: etapas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.etapas (id, nombre, activo, created_at, updated_at) FROM stdin;
@@ -786,7 +860,7 @@ COPY public.etapas (id, nombre, activo, created_at, updated_at) FROM stdin;
 
 
 --
--- Data for Name: failed_jobs; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: failed_jobs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.failed_jobs (id, uuid, connection, queue, payload, exception, failed_at) FROM stdin;
@@ -794,7 +868,7 @@ COPY public.failed_jobs (id, uuid, connection, queue, payload, exception, failed
 
 
 --
--- Data for Name: job_batches; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: job_batches; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.job_batches (id, name, total_jobs, pending_jobs, failed_jobs, failed_job_ids, options, cancelled_at, created_at, finished_at) FROM stdin;
@@ -802,7 +876,7 @@ COPY public.job_batches (id, name, total_jobs, pending_jobs, failed_jobs, failed
 
 
 --
--- Data for Name: jobs; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: jobs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.jobs (id, queue, payload, attempts, reserved_at, available_at, created_at) FROM stdin;
@@ -810,19 +884,19 @@ COPY public.jobs (id, queue, payload, attempts, reserved_at, available_at, creat
 
 
 --
--- Data for Name: marcas; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: marcas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.marcas (id, nombre, activo, created_at, updated_at, imagen) FROM stdin;
-1	Huggies	t	2026-07-06 20:45:02	2026-07-09 16:31:59	marcas/01KX3VHH2MJV4B40HJ5CRBFBRR.jpg
-2	Pampers	t	2026-07-06 20:45:02	2026-07-09 16:53:06	marcas/01KX3WR76NH2DA7HHNY5AEGAT1.jpg
-3	Babysec	t	2026-07-06 20:45:02	2026-07-09 17:01:11	marcas/01KX3X70CVCM5N90XEYFA6YDZ8.jpg
-4	Pequeño Mundo	t	2026-07-06 20:45:02	2026-07-09 17:18:50	marcas/01KX3Y7A5PVWWT9022WXTS3NP3.jpg
+1	Huggies	t	2026-07-06 20:45:02	2026-08-06 21:21:45	marcas/01KZCF8814BTQ78NNPZ977KBNG.png
+2	Pampers	t	2026-07-06 20:45:02	2026-08-06 21:22:01	marcas/01KZCF8QERXX7GQWSTZ0RX0GJB.jpg
+3	Babysec	t	2026-07-06 20:45:02	2026-08-06 21:22:21	marcas/01KZCF9B2J3RXM0527BE5T0WV6.jpg
+4	Pequeño Mundo	t	2026-07-06 20:45:02	2026-08-06 21:22:41	marcas/01KZCF9YKV4XK97J1F9CAFNRSF.jpg
 \.
 
 
 --
--- Data for Name: migrations; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: migrations; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.migrations (id, migration, batch) FROM stdin;
@@ -858,11 +932,20 @@ COPY public.migrations (id, migration, batch) FROM stdin;
 30	2026_07_09_170940_drop_talles_tables	10
 31	2026_07_09_173934_add_tiene_talla_to_productos_table	11
 32	2026_08_03_211514_remove_atributos	12
+33	2026_07_05_000001_create_categorias_table	13
+34	2026_07_05_000002_create_marcas_table	13
+35	2026_07_05_000003_create_etapas_table	13
+36	2026_07_05_000004_create_productos_table	13
+37	2026_07_05_000005_create_producto_relations_table	13
+38	2026_07_05_000006_create_promociones_table	13
+39	2026_07_05_000007_create_pedidos_table	13
+40	2026_07_05_000008_create_cart_and_config_table	13
+41	2026_08_06_223625_add_mp_qr_fields_to_pedidos_table	14
 \.
 
 
 --
--- Data for Name: password_reset_tokens; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: password_reset_tokens; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.password_reset_tokens (email, token, created_at) FROM stdin;
@@ -870,25 +953,47 @@ COPY public.password_reset_tokens (email, token, created_at) FROM stdin;
 
 
 --
--- Data for Name: pedido_items; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: pedido_items; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.pedido_items (id, pedido_id, producto_id, nombre, cantidad, precio_unitario, subtotal, created_at, updated_at) FROM stdin;
 28	21	2	Pañales Pampers Premium Care M x48	1	9200.00	9200.00	2026-08-03 21:46:35	2026-08-03 21:46:35
+29	22	23	sdfdsff	1	34.00	34.00	2026-08-06 22:43:16	2026-08-06 22:43:16
+30	23	15	Enterito polar con capucha	1	9800.00	9800.00	2026-08-06 22:46:18	2026-08-06 22:46:18
+31	23	14	Body manga corta x3	1	5500.00	5500.00	2026-08-06 22:46:18	2026-08-06 22:46:18
+32	24	16	Crema para pañal Mustela 100ml	1	6200.00	6200.00	2026-08-06 22:50:31	2026-08-06 22:50:31
+33	24	18	Leche NAN 1 polvo 800g	1	14500.00	14500.00	2026-08-06 22:50:31	2026-08-06 22:50:31
+34	25	19	Papilla Nestum Multicereal 200g	1	3200.00	3200.00	2026-08-06 22:52:40	2026-08-06 22:52:40
+36	27	17	Shampoo + jabón líquido Johnson Baby 500ml	1	4100.00	4100.00	2026-08-06 23:22:10	2026-08-06 23:22:10
+37	27	16	Crema para pañal Mustela 100ml	1	6200.00	6200.00	2026-08-06 23:22:10	2026-08-06 23:22:10
+38	28	11	Pañales Huggies Supreme RN x50	2	8500.00	17000.00	2026-08-06 23:35:28	2026-08-06 23:35:28
+39	29	18	Leche NAN 1 polvo 800g	1	14500.00	14500.00	2026-08-07 00:10:34	2026-08-07 00:10:34
+40	29	4	Body manga corta x3	1	5500.00	5500.00	2026-08-07 00:10:34	2026-08-07 00:10:34
+41	30	15	Enterito polar con capucha	1	9800.00	9800.00	2026-08-07 00:14:03	2026-08-07 00:14:03
+42	31	18	Leche NAN 1 polvo 800g	8	14500.00	116000.00	2026-08-07 00:17:51	2026-08-07 00:17:51
 \.
 
 
 --
--- Data for Name: pedidos; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: pedidos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.pedidos (id, user_id, total, subtotal, descuento, estado, direccion, ciudad, codigo_postal, telefono, observaciones, mp_preference_id, mp_payment_id, mp_status, mp_merchant_order_id, created_at, updated_at, token, email) FROM stdin;
-21	9	9200.00	9200.00	0.00	pagado	Calle 1	Rosario	2000	3410000000	\N	TEST_21_1785793595	TEST_21	approved	\N	2026-08-03 21:46:35	2026-08-03 21:46:35	Xk9ghgWtWkm5B0eDHIrgQrtPGYZOxbRy	co.53509@test.local
+COPY public.pedidos (id, user_id, total, subtotal, descuento, estado, direccion, ciudad, codigo_postal, telefono, observaciones, mp_preference_id, mp_payment_id, mp_status, mp_merchant_order_id, created_at, updated_at, token, email, mp_qr_data, mp_order_id) FROM stdin;
+21	9	9200.00	9200.00	0.00	pagado	Calle 1	Rosario	2000	3410000000	\N	TEST_21_1785793595	TEST_21	approved	\N	2026-08-03 21:46:35	2026-08-03 21:46:35	Xk9ghgWtWkm5B0eDHIrgQrtPGYZOxbRy	co.53509@test.local	\N	\N
+22	\N	34.00	34.00	0.00	pagado	Calle 1 100	Buenos Aires	1425	1111111111	\N	\N	TEST_22	approved	\N	2026-08-06 22:43:15	2026-08-06 22:43:41	eKfjkRV4TEn0NvFyG0aCpPOU0efmeUgY	qa@test.com	TEST_QR_22_1786056196	TEST_ORDER_22_1786056196
+23	\N	15300.00	15300.00	0.00	pagado	Las heras 219	Lobería	7635	02262570382	\N	\N	TEST_23	approved	\N	2026-08-06 22:46:18	2026-08-06 22:49:24	3fzXVRr9pUF5F3jILZRVfPTmda1qJOqh	cristianmarsico84@gmail.com	TEST_QR_23_1786056378	TEST_ORDER_23_1786056378
+24	4	20700.00	20700.00	0.00	pagado	Gregorio's Italian Restaurant	Carlsbad	92008	02243242432	\N	\N	TEST_24	approved	\N	2026-08-06 22:50:31	2026-08-06 22:50:36	BNyj4WzAxEOU3VhbIBzth5sfGUVXhl8x	sergio@gmail.com	TEST_QR_24_1786056631	TEST_ORDER_24_1786056631
+25	4	3200.00	3200.00	0.00	pagado	Gregorio's Italian Restaurant	Carlsbad	92008	344234234324	\N	\N	TEST_25	approved	\N	2026-08-06 22:52:40	2026-08-06 22:52:53	6l5SLm4Zks2hcfUWo3TAU4GYjXvzKbZK	sergio@gmail.com	TEST_QR_25_1786056760	TEST_ORDER_25_1786056760
+29	4	20000.00	20000.00	0.00	pagado	Gregorio's Italian Restaurant	Carlsbad	92008	02226625709	\N	\N	TEST_29	approved	\N	2026-08-07 00:10:34	2026-08-07 00:11:54	jdR6cQZU8lDYlCChAU7vFVGIxfIJmgeb	sergio@gmail.com	00020101021243650016com.mercadolibre020130636bad92398-4dfa-4285-8495-89c7f33182c25011000711111115204970053030325802AR5909Test Test6004CABA63041D83	ORDTST01KZCRXCEED1CBZNY2PRF195FT
+30	4	9800.00	9800.00	0.00	pagado	Gregorio's Italian Restaurant	Carlsbad	92008	5665565	\N	\N	TEST_30	approved	\N	2026-08-07 00:14:03	2026-08-07 00:14:18	OYZWUSNeCkq8195294D0BzbQCRct28m0	sergio@gmail.com	00020101021243650016com.mercadolibre0201306360940f13b-33af-4a5b-a5ca-d8d3d02677ec5011000711111115204970053030325802AR5909Test Test6004CABA63044B66	ORDTST01KZCS3RHYJHYKFAQ272Z5AYGN
+31	4	116000.00	116000.00	0.00	pagado	Gregorio's Italian Restaurant	Carlsbad	92008	565656556	\N	\N	TEST_31	approved	\N	2026-08-07 00:17:51	2026-08-07 00:19:53	hsqknZrYatKexPKsVq0NJTzsBJT9cj49	sergio@gmail.com	00020101021243650016com.mercadolibre020130636e010a812-bd91-4553-9a80-59ead38c21125011000711111115204970053030325802AR5909Test Test6004CABA630460B1	ORDTST01KZCSAQ8MZ6PS01DV00R2JJMC
+27	4	10300.00	10300.00	0.00	pagado	Gregorio's Italian Restaurant	Carlsbad	92008	32432432432	\N	\N	171547941599	approved	ORDTST01KZCP4RKHV9Z4B35R3P44TW53	2026-08-06 23:22:10	2026-08-07 00:22:56	2lSqK6luHlv6KKam4SiAS3ubP8qkwn1y	sergio@gmail.com	00020101021243650016com.mercadolibre0201306366c46fe5b-9e28-48b1-b607-79bf0b3633bd5011000711111115204970053030325802AR5909Test Test6004CABA630452DB	ORDTST01KZCP4RKHV9Z4B35R3P44TW53
+28	4	17000.00	17000.00	0.00	pagado	Gregorio's Italian Restaurant	Loberia	92008	295656	\N	\N	171550886599	approved	ORDTST01KZCPX3RF27KKYZAYW4D40HCZ	2026-08-06 23:35:28	2026-08-07 00:22:56	UXAnTz84FD4vrtre5mRAp7I3EHz42NPm	sergio@gmail.com	00020101021243650016com.mercadolibre0201306360fb68729-955f-44c8-af21-34fa6983b2d05011000711111115204970053030325802AR5909Test Test6004CABA63040C9A	ORDTST01KZCPX3RF27KKYZAYW4D40HCZ
 \.
 
 
 --
--- Data for Name: producto_imagens; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: producto_imagens; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.producto_imagens (id, producto_id, path, es_principal, created_at, updated_at) FROM stdin;
@@ -899,80 +1004,81 @@ COPY public.producto_imagens (id, producto_id, path, es_principal, created_at, u
 
 
 --
--- Data for Name: productos; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: productos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.productos (id, categoria_id, nombre, descripcion, precio, stock, edad_talla, activo, destacado, created_at, updated_at, marca_id, etapa_id, tiene_talla) FROM stdin;
-4	2	Body manga corta x3	Pack de 3 bodies de algodón manga corta, ideal para el día a día.	5500.00	40	RN - 12 meses	t	t	2026-07-06 20:45:02	2026-07-06 21:38:06	4	\N	f
 9	4	Papilla Nestum Multicereal 200g	Papilla de multicereal fortificada con vitaminas y minerales.	3200.00	90	6+ meses	t	f	2026-07-06 20:45:02	2026-07-06 21:38:06	\N	\N	f
-3	1	Pañales Babysec G x42	<p>Pañales Babysec talla grande, con barreras anti-filtraje y ajuste elástico.</p>	7800.00	60	G (9-14 kg)	t	f	2026-07-06 20:45:02	2026-07-06 21:44:45	3	\N	f
-13	1	Pañales Babysec G x42	Pañales Babysec talla grande, con barreras anti-filtraje y ajuste elástico.	7800.00	60	G (9-14 kg)	t	f	2026-07-06 20:51:22	2026-07-06 21:38:02	3	\N	f
 1	1	Pañales Huggies Supreme RN x50	<p>Pañales descartables Huggies Supreme para recién nacido. Suaves y con protección total.</p>	8500.00	100	RN (2-5 kg)	t	t	2026-07-06 20:45:02	2026-08-03 21:00:51	1	7	t
 2	1	Pañales Pampers Premium Care M x48	Pañales Pampers Premium Care, talla mediana. Máxima absorción y sequedad.	9200.00	79	M (6-11 kg)	t	t	2026-07-06 20:45:02	2026-08-03 21:46:35	2	\N	f
+3	1	Pañales Babysec G x42	<p>Pañales Babysec talla grande, con barreras anti-filtraje y ajuste elástico.</p>	7800.00	60	G (9-14 kg)	t	f	2026-07-06 20:45:02	2026-08-04 19:18:57	3	7	f
+13	1	Pañales Babysec G x42	<p>Pañales Babysec talla grande, con barreras anti-filtraje y ajuste elástico.</p>	7800.00	60	G (9-14 kg)	t	f	2026-07-06 20:51:22	2026-08-04 19:19:34	3	9	f
+4	2	Body manga corta x3	Pack de 3 bodies de algodón manga corta, ideal para el día a día.	5500.00	39	RN - 12 meses	t	t	2026-07-06 20:45:02	2026-08-07 00:11:54	4	\N	f
+23	5	sdfdsff	<p>sdfsfsdfdsf</p>	34.00	33	XXG	t	f	2026-08-03 21:06:35	2026-08-06 22:43:41	3	9	t
+14	2	Body manga corta x3	Pack de 3 bodies de algodón manga corta, ideal para el día a día.	5500.00	39	RN - 12 meses	t	t	2026-07-06 20:51:23	2026-08-06 22:49:24	4	\N	f
+19	4	Papilla Nestum Multicereal 200g	Papilla de multicereal fortificada con vitaminas y minerales.	3200.00	89	6+ meses	t	f	2026-07-06 20:51:23	2026-08-06 22:52:53	\N	\N	f
+17	3	Shampoo + jabón líquido Johnson Baby 500ml	Shampoo y jabón 2 en 1, fórmula suave sin lágrimas.	4100.00	69	\N	t	f	2026-07-06 20:51:23	2026-08-06 23:23:53	\N	\N	f
 5	2	Enterito polar con capucha	Enterito de polar suave con capucha, perfecto para el invierno.	9800.00	30	6-18 meses	t	f	2026-07-06 20:45:02	2026-07-06 21:38:06	4	\N	f
-11	1	Pañales Huggies Supreme RN x50	Pañales descartables Huggies Supreme para recién nacido. Suaves y con protección total.	8500.00	100	RN (2-5 kg)	t	t	2026-07-06 20:51:22	2026-07-06 21:38:06	1	\N	f
 12	1	Pañales Pampers Premium Care M x48	Pañales Pampers Premium Care, talla mediana. Máxima absorción y sequedad.	9200.00	80	M (6-11 kg)	t	t	2026-07-06 20:51:22	2026-07-06 21:38:06	2	\N	f
-14	2	Body manga corta x3	Pack de 3 bodies de algodón manga corta, ideal para el día a día.	5500.00	40	RN - 12 meses	t	t	2026-07-06 20:51:23	2026-07-06 21:38:06	4	\N	f
-15	2	Enterito polar con capucha	Enterito de polar suave con capucha, perfecto para el invierno.	9800.00	30	6-18 meses	t	f	2026-07-06 20:51:23	2026-07-06 21:38:06	4	\N	f
-19	4	Papilla Nestum Multicereal 200g	Papilla de multicereal fortificada con vitaminas y minerales.	3200.00	90	6+ meses	t	f	2026-07-06 20:51:23	2026-07-06 21:38:06	\N	\N	f
 8	4	Leche NAN 1 polvo 800g	Leche en polvo para lactantes desde el primer día.	14500.00	40	0-6 meses	t	t	2026-07-06 20:45:02	2026-07-06 21:38:06	\N	\N	f
-18	4	Leche NAN 1 polvo 800g	Leche en polvo para lactantes desde el primer día.	14500.00	40	0-6 meses	t	t	2026-07-06 20:51:23	2026-07-06 21:38:06	\N	\N	f
 10	5	Chupete ortodóntico silicona 0-6m x2	Chupete de silicona ortodóntico con protector nasal. Pack x2.	2800.00	100	\N	t	f	2026-07-06 20:45:02	2026-07-06 21:38:06	\N	\N	f
 20	5	Chupete ortodóntico silicona 0-6m x2	Chupete de silicona ortodóntico con protector nasal. Pack x2.	2800.00	100	\N	t	f	2026-07-06 20:51:23	2026-07-06 21:38:06	\N	\N	f
 6	3	Crema para pañal Mustela 100ml	Crema protectora para la zona del pañal, previene y trata la irritación.	6200.00	50	\N	t	t	2026-07-06 20:45:02	2026-07-06 21:38:06	\N	\N	f
-16	3	Crema para pañal Mustela 100ml	Crema protectora para la zona del pañal, previene y trata la irritación.	6200.00	50	\N	t	t	2026-07-06 20:51:23	2026-07-06 21:38:06	\N	\N	f
 7	3	Shampoo + jabón líquido Johnson Baby 500ml	Shampoo y jabón 2 en 1, fórmula suave sin lágrimas.	4100.00	70	\N	t	f	2026-07-06 20:45:02	2026-07-06 21:38:06	\N	\N	f
-17	3	Shampoo + jabón líquido Johnson Baby 500ml	Shampoo y jabón 2 en 1, fórmula suave sin lágrimas.	4100.00	70	\N	t	f	2026-07-06 20:51:23	2026-07-06 21:38:06	\N	\N	f
-23	5	sdfdsff	<p>sdfsfsdfdsf</p>	34.00	34	XXG	t	f	2026-08-03 21:06:35	2026-08-03 21:06:35	3	9	t
+16	3	Crema para pañal Mustela 100ml	Crema protectora para la zona del pañal, previene y trata la irritación.	6200.00	48	\N	t	t	2026-07-06 20:51:23	2026-08-06 23:23:53	\N	\N	f
+11	1	Pañales Huggies Supreme RN x50	Pañales descartables Huggies Supreme para recién nacido. Suaves y con protección total.	8500.00	98	RN (2-5 kg)	t	t	2026-07-06 20:51:22	2026-08-06 23:36:49	1	\N	f
+15	2	Enterito polar con capucha	Enterito de polar suave con capucha, perfecto para el invierno.	9800.00	28	6-18 meses	t	f	2026-07-06 20:51:23	2026-08-07 00:14:18	4	\N	f
+18	4	Leche NAN 1 polvo 800g	Leche en polvo para lactantes desde el primer día.	14500.00	30	0-6 meses	t	t	2026-07-06 20:51:23	2026-08-07 00:19:53	\N	\N	f
 \.
 
 
 --
--- Data for Name: promocion_producto; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: promocion_producto; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.promocion_producto (id, promocion_id, producto_id, created_at, updated_at) FROM stdin;
+5	4	2	\N	\N
+6	4	10	\N	\N
+7	4	11	\N	\N
+8	4	13	\N	\N
+9	4	4	\N	\N
+10	4	7	\N	\N
 \.
 
 
 --
--- Data for Name: promociones; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: promociones; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.promociones (id, nombre, descripcion, tipo_descuento, valor_descuento, fecha_inicio, fecha_fin, activo, created_at, updated_at) FROM stdin;
+4	Dia del bebé	\N	porcentaje	30.00	2026-08-03	2026-08-05	t	2026-08-03 22:31:15	2026-08-03 22:31:15
 \.
 
 
 --
--- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.sessions (id, user_id, ip_address, user_agent, payload, last_activity) FROM stdin;
-G7XJnPAUaOkXo8Pxu5s6xAYUM9ujchmYwKz8jenJ	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTozOntzOjY6Il90b2tlbiI7czo0MDoiMGQ4QzRlVE5RWUVTUXBNQ2xFQUIzcTloTTFLdlMxdUJBUHpoaXJvbyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1785786571
-RbVVt695ZGMlNHoZzblKcpKdKSpvvPQClwTY6Kju	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTozOntzOjY6Il90b2tlbiI7czo0MDoieldKVEhzTkZPZXdxRkZoM2JuMW9uUnhLajQ1T0xWODRFbnBiTEgyVyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1785791904
-jnzMnuCqe6ugT6b9ffYrXqPTum2QddWdpi84Bj1Y	1	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTo1OntzOjY6Il90b2tlbiI7czo0MDoiZXhlS1I0Q3hDUDRwSFlTUU9oT0hmc2Jyb2R6M3R1NElpbXRZbTZ1WSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hZG1pbiI7czo1OiJyb3V0ZSI7czozMDoiZmlsYW1lbnQuYWRtaW4ucGFnZXMuZGFzaGJvYXJkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjE3OiJwYXNzd29yZF9oYXNoX3dlYiI7czo2NDoiZDVhZmY0MmMwMzA0MjdjOTM3YTBlYWRiZWQzMTdlNWVhZjE5N2UzM2Y2NDdiMTY5NWNiMGE4NzA4NmYwMzFjOSI7fQ==	1785786588
-GktpT6m2P90gYCPKyu3WCf5zCA8KUnoouTX2JUao	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTozOntzOjY6Il90b2tlbiI7czo0MDoiV205MTgya1RYbEZERm5ScE94SThyRFUzVXdHOFh0ZWd3NEJOTnhJZCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzM6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9wcm9kdWN0b3MvMiI7czo1OiJyb3V0ZSI7czoxNDoicHJvZHVjdG9zLnNob3ciO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1785791913
-NBlNfSRJgWPXLtLfF6oslMQRR3BMph6QPr75C4fq	1	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTo1OntzOjY6Il90b2tlbiI7czo0MDoiRXpqRU9rdDI2REhqbWxrdmF2TjJ6SUJFVmJocWdFYmQ4dUpNN1lNZSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hZG1pbiI7czo1OiJyb3V0ZSI7czozMDoiZmlsYW1lbnQuYWRtaW4ucGFnZXMuZGFzaGJvYXJkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjE3OiJwYXNzd29yZF9oYXNoX3dlYiI7czo2NDoiZDVhZmY0MmMwMzA0MjdjOTM3YTBlYWRiZWQzMTdlNWVhZjE5N2UzM2Y2NDdiMTY5NWNiMGE4NzA4NmYwMzFjOSI7fQ==	1785786605
-B2Yf19r27MM2XbGPFIoWK9jOZhHqMkorMtpQB0Ly	8	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTo0OntzOjY6Il90b2tlbiI7czo0MDoibnJ1QVRQeGRob0ZRUGloQmRZdXRKcFNxU1JadnpNTUpoQ2ZPT2pNQiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9jaGVja291dCI7czo1OiJyb3V0ZSI7czoxNDoiY2hlY2tvdXQuaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo4O30=	1785791925
-wFAPH1hMU8JoG1as1NT1OxqtWARrN8rXlenqmItF	1	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMDJ0SVgzVFg0VGdGZXE5aG1pWU5aazNsMkhSUTR0NFVDTjU5cHd6TSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hZG1pbi9wcm9kdWN0b3MvMi9lZGl0IjtzOjU6InJvdXRlIjtzOjM5OiJmaWxhbWVudC5hZG1pbi5yZXNvdXJjZXMucHJvZHVjdG9zLmVkaXQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTc6InBhc3N3b3JkX2hhc2hfd2ViIjtzOjY0OiJkNWFmZjQyYzAzMDQyN2M5MzdhMGVhZGJlZDMxN2U1ZWFmMTk3ZTMzZjY0N2IxNjk1Y2IwYTg3MDg2ZjAzMWM5Ijt9	1785793576
-IA9Q2lzy9IwLvhlnPvQH1KAW71ZnMEIqbRPtJJgE	9	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTo0OntzOjY6Il90b2tlbiI7czo0MDoiUDU2ZWkwdDV3a3psRHF1OGRJakFqeVRuQnhYQ214SnM0ZkpLRmdKVCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Nzg6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9jaGVja291dC8yMS9leGl0bz90b2tlbj1YazlnaGdXdFdrbTVCMGVESElyZ1FydFBHWVpPeGJSeSI7czo1OiJyb3V0ZSI7czoxNDoiY2hlY2tvdXQuZXhpdG8iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo5O30=	1785793596
-0RyoQIXqYgtCC5nlqgPrWuFSdT0Ej0T1c1p54tio	\N	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36	YToyOntzOjY6Il90b2tlbiI7czo0MDoiSVl3VlgxbEtuWVZWam5vd0hyNlpGOG9jRVNBRGliY25JUnJXcTQ2eCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1785788629
-si5J8XsFPXYXfLWSnafHewzTcvRqrNkPhgW6kQiB	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTozOntzOjY6Il90b2tlbiI7czo0MDoiMlgwZVhJVXo5VlVVQlJ4dFlvTkdSdE1BZWFhbWNpbzYwdWg5WkJ3ZiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9sb2dpbiI7czo1OiJyb3V0ZSI7czo1OiJsb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1785790005
-7Et8ZXRkzZJ5WzzuVxKYu3yux0ubH9eHDSRf4HGi	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTo0OntzOjY6Il90b2tlbiI7czo0MDoiREM2cndnOXZpVmE1cHY0TEdKTTZqRG1NbXBMQjFic200Y2hkRXB0TCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9sb2dpbiI7czo1OiJyb3V0ZSI7czo1OiJsb2dpbiI7fXM6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9kYXNoYm9hcmQiO319	1785790041
-kT7bj9lXvGvJs4RRkmjCXhjh7uhUBBuSFXP5xIfq	7	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTo0OntzOjY6Il90b2tlbiI7czo0MDoiWGZURWxVRlFhZmxLSVFLZFI0b3B6VnlXVEh4S0J4NWZaSXpYNDhjRCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Nzt9	1785790051
-u2XPYLsBkPSyM2GmqwJiuyrewjWRFaY8d57HJOs5	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTozOntzOjY6Il90b2tlbiI7czo0MDoiY0JvTDFIaHlCY3F3VmNKS1N4SHg1YjIzQ2dhSzhjS2pBS0d0VDhSYiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9yZWdpc3RlciI7czo1OiJyb3V0ZSI7czo4OiJyZWdpc3RlciI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1785790005
-jSe5pFB8veIzfMBoUu1ZpfR4hnynYxoBxhJA35gr	5	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTo0OntzOjY6Il90b2tlbiI7czo0MDoiQzc1UkFWbUNDM3l4b2JCOXhOSlNjNlBRMU5ESTAxVWV0SU0ySXA1TCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9sb2dpbiI7czo1OiJyb3V0ZSI7czo1OiJsb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjU7fQ==	1785790025
-RYzQrOnNoiMsJ0uxX1uD5sOxT51AkIoFsswn5ppe	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTozOntzOjY6Il90b2tlbiI7czo0MDoiVGw4TGl2azE2dDdrdjhLN0JWT1VRcENEQ3h4NW5QTmc1RGhxV1EwWiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hZG1pbi9pbmdyZXNhciI7czo1OiJyb3V0ZSI7czoxNDoiYWRtaW4uaW5ncmVzYXIiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1785786650
-py7FqxAqFZEokkgh78CpTLYmvqkFMkLLkLJp9zkU	1	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMUFtUUkzTjNhRWVzdWs0R012OFFRdXJRREFRTjM4ZVBPd1FuOGVVbSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hZG1pbiI7czo1OiJyb3V0ZSI7czozMDoiZmlsYW1lbnQuYWRtaW4ucGFnZXMuZGFzaGJvYXJkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjE3OiJwYXNzd29yZF9oYXNoX3dlYiI7czo2NDoiZDVhZmY0MmMwMzA0MjdjOTM3YTBlYWRiZWQzMTdlNWVhZjE5N2UzM2Y2NDdiMTY5NWNiMGE4NzA4NmYwMzFjOSI7fQ==	1785786652
-n1NeAfM3pzbnzHUTRiudv4XWFN0dbZgKMXXm6jem	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTozOntzOjY6Il90b2tlbiI7czo0MDoiWWZVNnVCWHNLTXpVQTlPR3JVamM0TjFtSThVNEd5QUxmZTlxMnpVZyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1785790058
-jt77zsampeQg4jDZsVJj7h0xoKWh0x1Danlgb3BN	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTozOntzOjY6Il90b2tlbiI7czo0MDoiZUo3czFiUWlSUXNXS29mbXpKVjU4bnJUS3NXRUtBMkp2THBwcldXSyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hZG1pbi9pbmdyZXNhciI7czo1OiJyb3V0ZSI7czoxNDoiYWRtaW4uaW5ncmVzYXIiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1785786846
-0eEV9vrgYM0darqaU89jpW1FrkteH4aPYE3zIl1s	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTozOntzOjY6Il90b2tlbiI7czo0MDoieGwzNXNwZTBEWk5zd0RUb3pocnBWUzduN3FlUWt1eWVtMlRUdllEaiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1785791912
-8MNDlf1RUvBAYE84l2dDIsYkxYTsfeHxZkIPXt9D	1	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36	YTo3OntzOjY6Il90b2tlbiI7czo0MDoiZ2NhZERDSGg1dUprZmpWWURjdWt5MWxIVFpNUVY0TU5wQXU2U0hweCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hZG1pbiI7czo1OiJyb3V0ZSI7czozMDoiZmlsYW1lbnQuYWRtaW4ucGFnZXMuZGFzaGJvYXJkIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjE3OiJwYXNzd29yZF9oYXNoX3dlYiI7czo2NDoiZDVhZmY0MmMwMzA0MjdjOTM3YTBlYWRiZWQzMTdlNWVhZjE5N2UzM2Y2NDdiMTY5NWNiMGE4NzA4NmYwMzFjOSI7czo2OiJ0YWJsZXMiO2E6ODp7czo0MDoiMzIzZjYwNTljYWQwNGI2YTI0ODdjNDNhYzM4ODc0NGNfY29sdW1ucyI7YToyOntpOjA7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6Njoibm9tYnJlIjtzOjU6ImxhYmVsIjtzOjY6Ik5vbWJyZSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjE7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6NjoiYWN0aXZvIjtzOjU6ImxhYmVsIjtzOjY6IkFjdGl2byI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO319czo0MDoiMDg3ODEzNzc0NDcyNTU3OWFjMTM2YTgxZDEzZTQxMWNfY29sdW1ucyI7YTozOntpOjA7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6NjoiaW1hZ2VuIjtzOjU6ImxhYmVsIjtzOjY6IkltYWdlbiI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjE7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6Njoibm9tYnJlIjtzOjU6ImxhYmVsIjtzOjY6Ik5vbWJyZSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjI7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6NjoiYWN0aXZvIjtzOjU6ImxhYmVsIjtzOjY6IkFjdGl2byI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO319czo0MDoiMWJkZjJkYzFjYmVjNTI3ZmNjMmZjNTFkMWQyY2JlZWFfY29sdW1ucyI7YTo3OntpOjA7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MjoiaWQiO3M6NToibGFiZWwiO3M6MToiIyI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjE7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6OToidXNlci5uYW1lIjtzOjU6ImxhYmVsIjtzOjc6IlVzdWFyaW8iO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aToyO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjU6ImVtYWlsIjtzOjU6ImxhYmVsIjtzOjU6IkVtYWlsIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6MzthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czo1OiJ0b3RhbCI7czo1OiJsYWJlbCI7czo1OiJUb3RhbCI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjQ7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6NjoiZXN0YWRvIjtzOjU6ImxhYmVsIjtzOjY6IkVzdGFkbyI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjU7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6OToibXBfc3RhdHVzIjtzOjU6ImxhYmVsIjtzOjI6Ik1QIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6NjthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMDoiY3JlYXRlZF9hdCI7czo1OiJsYWJlbCI7czo1OiJGZWNoYSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO319czo0MDoiMTE3ZjUxYzdiY2E0YTM0Y2VmZDJiYzk3ZjlhNjU5MThfY29sdW1ucyI7YTo4OntpOjA7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6Njoibm9tYnJlIjtzOjU6ImxhYmVsIjtzOjY6Ik5vbWJyZSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjE7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTY6ImNhdGVnb3JpYS5ub21icmUiO3M6NToibGFiZWwiO3M6MTA6IkNhdGVnb3LDrWEiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aToyO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjEyOiJtYXJjYS5ub21icmUiO3M6NToibGFiZWwiO3M6NToiTWFyY2EiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aTozO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjEyOiJldGFwYS5ub21icmUiO3M6NToibGFiZWwiO3M6NToiRXRhcGEiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aTo0O2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjY6InByZWNpbyI7czo1OiJsYWJlbCI7czo2OiJQcmVjaW8iO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aTo1O2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjU6InN0b2NrIjtzOjU6ImxhYmVsIjtzOjU6IlN0b2NrIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6NjthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czo2OiJhY3Rpdm8iO3M6NToibGFiZWwiO3M6NjoiQWN0aXZvIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6NzthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czo5OiJkZXN0YWNhZG8iO3M6NToibGFiZWwiO3M6OToiRGVzdGFjYWRvIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fX1zOjQwOiI3OGZjZjgzMzc5MzIyMjM1NjliNGM5ODY2MDdhZjM2OV9jb2x1bW5zIjthOjQ6e2k6MDthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czo0OiJwYXRoIjtzOjU6ImxhYmVsIjtzOjQ6IlBhdGgiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aToxO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjEyOiJlc19wcmluY2lwYWwiO3M6NToibGFiZWwiO3M6MTI6IkVzIHByaW5jaXBhbCI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjI7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTA6ImNyZWF0ZWRfYXQiO3M6NToibGFiZWwiO3M6MTA6IkNyZWF0ZWQgYXQiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjowO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjoxO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7YjoxO31pOjM7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTA6InVwZGF0ZWRfYXQiO3M6NToibGFiZWwiO3M6MTA6IlVwZGF0ZWQgYXQiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjowO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjoxO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7YjoxO319czo0MDoiMjljYWRjMmNhMzIyNjlmZDVlYjNmZWNiYjVkMTU3YmZfY29sdW1ucyI7YTo2OntpOjA7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6NDoidGlwbyI7czo1OiJsYWJlbCI7czo0OiJUaXBvIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6MTthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czo1OiJ2YWxvciI7czo1OiJsYWJlbCI7czo1OiJWYWxvciI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjI7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTY6InByZWNpb19hZGljaW9uYWwiO3M6NToibGFiZWwiO3M6MTY6IlByZWNpbyBhZGljaW9uYWwiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aTozO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjU6InN0b2NrIjtzOjU6ImxhYmVsIjtzOjU6IlN0b2NrIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6NDthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMDoiY3JlYXRlZF9hdCI7czo1OiJsYWJlbCI7czoxMDoiQ3JlYXRlZCBhdCI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjA7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjE7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtiOjE7fWk6NTthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMDoidXBkYXRlZF9hdCI7czo1OiJsYWJlbCI7czoxMDoiVXBkYXRlZCBhdCI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjA7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjE7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtiOjE7fX1zOjQwOiI0ZDhmNzNlNTAwNjc5NWI4ZWJjM2IyODYyNmM0YmE4MV9jb2x1bW5zIjthOjc6e2k6MDthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czo2OiJub21icmUiO3M6NToibGFiZWwiO3M6NjoiTm9tYnJlIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6MTthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxNDoidGlwb19kZXNjdWVudG8iO3M6NToibGFiZWwiO3M6MTQ6IlRpcG8gZGVzY3VlbnRvIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6MjthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxNToidmFsb3JfZGVzY3VlbnRvIjtzOjU6ImxhYmVsIjtzOjk6IkRlc2N1ZW50byI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjM7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTI6ImZlY2hhX2luaWNpbyI7czo1OiJsYWJlbCI7czoxMjoiRmVjaGEgaW5pY2lvIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6NDthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czo5OiJmZWNoYV9maW4iO3M6NToibGFiZWwiO3M6OToiRmVjaGEgZmluIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6NTthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxNToicHJvZHVjdG9zX2NvdW50IjtzOjU6ImxhYmVsIjtzOjk6IlByb2R1Y3RvcyI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjY7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6NjoiYWN0aXZvIjtzOjU6ImxhYmVsIjtzOjY6IkFjdGl2byI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO319czo0MDoiZjJmMzM5YzZmMWFlMGUzOTVmOTMyZWRkMTFhNTFlMGZfY29sdW1ucyI7YTozOntpOjA7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6Njoibm9tYnJlIjtzOjU6ImxhYmVsIjtzOjY6Ik5vbWJyZSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjE7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTU6InByb2R1Y3Rvc19jb3VudCI7czo1OiJsYWJlbCI7czo5OiJQcm9kdWN0b3MiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aToyO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjY6ImFjdGl2byI7czo1OiJsYWJlbCI7czo2OiJBY3Rpdm8iO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9fX1zOjg6ImZpbGFtZW50IjthOjA6e319	1785794152
+n0oqZ3yW990b6oShz5aFD7hhXWFRM4TA5lWTMb6A	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YToyOntzOjY6Il90b2tlbiI7czo0MDoiN1pnOFA1MjhZdTlmSkt0U3BMWHhOU2JlNEd2OWR0R0hpN245a1NudyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1786064868
+UgSkk2oZIEtJKVPgEJqzPLR8qqgqTu5OmQR1LmYx	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YToyOntzOjY6Il90b2tlbiI7czo0MDoieVNxQUZtZ2h6YTMwaVN6aDNyd1F4bU5GSUo3cU1LWUhhRjUyVkU4QSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1786064999
+OrtGHgrD56qqZI2rdDBcCPmDrIjBp4yO2F5KbYZ3	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTozOntzOjY6Il90b2tlbiI7czo0MDoiM1FJTkJXd2Y0STBoZ3FkWW8yRzBWc1hPZkxUUVVxa2llNjBPRUtjdiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Nzk6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9jaGVja291dC8zMy9lc3RhZG8/dG9rZW49NzU4ODVGUXAwTVBYUVROc1NiZnNncG9XaVJoS3hWMEUiO3M6NToicm91dGUiO3M6MTU6ImNoZWNrb3V0LmVzdGFkbyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1786065015
+EsTTd7MW466oQcBiJNkiRsH1rRqWdlhFpxIXqxQO	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTo0OntzOjY6Il90b2tlbiI7czo0MDoicURLa3QzU2JpMk9mVXBDZnZKcVhydVJvQkJhV2hod1JySmJSVkdCbyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo0OiJjYXJ0IjthOjE6e2k6NDthOjQ6e3M6MTE6InByb2R1Y3RvX2lkIjtpOjQ7czo2OiJub21icmUiO3M6MTk6IkJvZHkgbWFuZ2EgY29ydGEgeDMiO3M6NjoicHJlY2lvIjtkOjU1MDA7czo4OiJjYW50aWRhZCI7aToxO319fQ==	1786062187
+xEYpzzFwWqXB6OQzsfAGrzvOjXXVFyjUDIYcvBwF	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTozOntzOjY6Il90b2tlbiI7czo0MDoidWVkTWdCaDc1MDNabWRTSWRwN21MN2VIVE5TMXNLakxJVHR0QWlRSiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1786058407
+tMwHHMZ1UDXbvkAfBzdBuojoGJHktJLmV2sPC5FO	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTozOntzOjY6Il90b2tlbiI7czo0MDoiRU5PakIzSTlpOE5XWDg4c3dncjJSTmtoUm42a1JrWHo2T1BpUU9LeSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Nzk6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9jaGVja291dC8yNi9lc3RhZG8/dG9rZW49cjVmVzlDWVJ5c0xNNEx5dTE5RWdzOENSOW9xZjJ3b3AiO3M6NToicm91dGUiO3M6MTU6ImNoZWNrb3V0LmVzdGFkbyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1786058443
+eiZ6mYAmofImAf1nLoMsKvTFcbW47N4MZaRycRkH	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTozOntzOjY6Il90b2tlbiI7czo0MDoieFdtVDVZME0zREJnd0dRYVp3SFZicjBVS1FOWFFsQm01UFdMS3ZuNSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Nzk6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9jaGVja291dC8zMi9lc3RhZG8/dG9rZW49ZmdPYk5pTkI0N3pRdG5YdXhnTVcyQnNZR3RhcDczRVIiO3M6NToicm91dGUiO3M6MTU6ImNoZWNrb3V0LmVzdGFkbyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1786062189
+mhtoTtYqxbOUTkXz8JioSQO3zkZyn06cpAp6RGTI	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YToyOntzOjY6Il90b2tlbiI7czo0MDoiNHhyelR4M3I4bzdxelZTZEJnZEtrWkgxOUk4UnhUVGZnTDFDY0tHOSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1786064868
+1kUfSaCcOF9uYEqQo1OAm5XHU4cB8nXv4c92pnoC	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YToyOntzOjY6Il90b2tlbiI7czo0MDoiVDNva3pTbUs1VXNJSmpISlF6U1R0M2lBRERXTFRZWHV2QkRpckN3USI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1786064999
+oQzvpWzx5Mp3UzLFOSS6zd6JFIsNYBRnFsjmNp5B	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTozOntzOjY6Il90b2tlbiI7czo0MDoiNE9SZjlydzNXS1l6QU1BdlFUY25qUEJZTllQellUZU9iRng5eWlaSyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1786058420
+Pr5fN2sko6YAwTFBQjMeEczi4Ex29RyX2EBpU1VE	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTo0OntzOjY6Il90b2tlbiI7czo0MDoibGw0S3NJS2Zrek9KTENuajRXUjdCdGFTNkoxWU9ud2lQY0JmZWg2RSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo0OiJjYXJ0IjthOjE6e2k6NDthOjQ6e3M6MTE6InByb2R1Y3RvX2lkIjtpOjQ7czo2OiJub21icmUiO3M6MTk6IkJvZHkgbWFuZ2EgY29ydGEgeDMiO3M6NjoicHJlY2lvIjtkOjU1MDA7czo4OiJjYW50aWRhZCI7aToxO319fQ==	1786058434
+dyY1BnOfuStvEIlsrRGCZXOd8ODuxRhg7o3NIfi4	4	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36	YTo0OntzOjY6Il90b2tlbiI7czo0MDoiaU9DOWxZek55djVaZW81NUVBNEZkZUFYbW9sQjRPR1lMSDB5TWJWOCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NDU6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvcHJvZHVjdG9zLzE4L3ByZWNpbyI7czo1OiJyb3V0ZSI7czoyMDoiYXBpLnByb2R1Y3Rvcy5wcmVjaW8iO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo0O30=	1786064761
+8vlJ8hfhWRsDlyQAQhwvJTKWh0e2KrodxPVlcTVt	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YToyOntzOjY6Il90b2tlbiI7czo0MDoiN2x6bkVyN3IwTklHZTBPekEzU1RsaUp5SGsxbWxhY0liSjZBRk9tViI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1786064906
+mZ5xzUcXnPxi8ewBFnrnRBzwQei5oasboAUQo7Sw	\N	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; es-AR) WindowsPowerShell/5.1.26100.8875	YTo0OntzOjY6Il90b2tlbiI7czo0MDoiV2lnUkZyVXBFVGl3MmZ5dWs5bE9PWnBVY0pIVWJHVW9vRWd1OUJOayI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo0OiJjYXJ0IjthOjE6e2k6NDthOjQ6e3M6MTE6InByb2R1Y3RvX2lkIjtpOjQ7czo2OiJub21icmUiO3M6MTk6IkJvZHkgbWFuZ2EgY29ydGEgeDMiO3M6NjoicHJlY2lvIjtkOjU1MDA7czo4OiJjYW50aWRhZCI7aToxO319fQ==	1786065013
 \.
 
 
 --
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.users (id, name, email, email_verified_at, password, remember_token, created_at, updated_at, direccion, telefono, is_admin) FROM stdin;
@@ -988,112 +1094,112 @@ COPY public.users (id, name, email, email_verified_at, password, remember_token,
 
 
 --
--- Name: cart_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: cart_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.cart_items_id_seq', 20, true);
+SELECT pg_catalog.setval('public.cart_items_id_seq', 30, true);
 
 
 --
--- Name: categorias_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: categorias_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.categorias_id_seq', 20, true);
 
 
 --
--- Name: configuraciones_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: configuraciones_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.configuraciones_id_seq', 1, true);
 
 
 --
--- Name: etapas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: etapas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.etapas_id_seq', 9, true);
 
 
 --
--- Name: failed_jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: failed_jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.failed_jobs_id_seq', 1, false);
 
 
 --
--- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.jobs_id_seq', 1, false);
 
 
 --
--- Name: marcas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: marcas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.marcas_id_seq', 17, true);
 
 
 --
--- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.migrations_id_seq', 32, true);
-
-
---
--- Name: pedido_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.pedido_items_id_seq', 28, true);
+SELECT pg_catalog.setval('public.migrations_id_seq', 41, true);
 
 
 --
--- Name: pedidos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: pedido_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.pedidos_id_seq', 21, true);
+SELECT pg_catalog.setval('public.pedido_items_id_seq', 44, true);
 
 
 --
--- Name: producto_imagens_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: pedidos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.pedidos_id_seq', 33, true);
+
+
+--
+-- Name: producto_imagens_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.producto_imagens_id_seq', 4, true);
 
 
 --
--- Name: productos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: productos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.productos_id_seq', 23, true);
 
 
 --
--- Name: promocion_producto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: promocion_producto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.promocion_producto_id_seq', 4, true);
-
-
---
--- Name: promociones_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.promociones_id_seq', 3, true);
+SELECT pg_catalog.setval('public.promocion_producto_id_seq', 10, true);
 
 
 --
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: promociones_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.promociones_id_seq', 4, true);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.users_id_seq', 9, true);
 
 
 --
--- Name: cache_locks cache_locks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: cache_locks cache_locks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cache_locks
@@ -1101,7 +1207,7 @@ ALTER TABLE ONLY public.cache_locks
 
 
 --
--- Name: cache cache_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: cache cache_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cache
@@ -1109,7 +1215,7 @@ ALTER TABLE ONLY public.cache
 
 
 --
--- Name: cart_items cart_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: cart_items cart_items_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cart_items
@@ -1117,7 +1223,7 @@ ALTER TABLE ONLY public.cart_items
 
 
 --
--- Name: cart_items cart_items_user_id_producto_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: cart_items cart_items_user_id_producto_id_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cart_items
@@ -1125,7 +1231,7 @@ ALTER TABLE ONLY public.cart_items
 
 
 --
--- Name: categorias categorias_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: categorias categorias_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.categorias
@@ -1133,7 +1239,7 @@ ALTER TABLE ONLY public.categorias
 
 
 --
--- Name: configuraciones configuraciones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: configuraciones configuraciones_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.configuraciones
@@ -1141,7 +1247,7 @@ ALTER TABLE ONLY public.configuraciones
 
 
 --
--- Name: etapas etapas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: etapas etapas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.etapas
@@ -1149,7 +1255,7 @@ ALTER TABLE ONLY public.etapas
 
 
 --
--- Name: failed_jobs failed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: failed_jobs failed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.failed_jobs
@@ -1157,7 +1263,7 @@ ALTER TABLE ONLY public.failed_jobs
 
 
 --
--- Name: failed_jobs failed_jobs_uuid_unique; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: failed_jobs failed_jobs_uuid_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.failed_jobs
@@ -1165,7 +1271,7 @@ ALTER TABLE ONLY public.failed_jobs
 
 
 --
--- Name: job_batches job_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: job_batches job_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.job_batches
@@ -1173,7 +1279,7 @@ ALTER TABLE ONLY public.job_batches
 
 
 --
--- Name: jobs jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: jobs jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.jobs
@@ -1181,7 +1287,7 @@ ALTER TABLE ONLY public.jobs
 
 
 --
--- Name: marcas marcas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: marcas marcas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.marcas
@@ -1189,7 +1295,7 @@ ALTER TABLE ONLY public.marcas
 
 
 --
--- Name: migrations migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: migrations migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.migrations
@@ -1197,7 +1303,7 @@ ALTER TABLE ONLY public.migrations
 
 
 --
--- Name: password_reset_tokens password_reset_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: password_reset_tokens password_reset_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.password_reset_tokens
@@ -1205,7 +1311,7 @@ ALTER TABLE ONLY public.password_reset_tokens
 
 
 --
--- Name: pedido_items pedido_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pedido_items pedido_items_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pedido_items
@@ -1213,7 +1319,7 @@ ALTER TABLE ONLY public.pedido_items
 
 
 --
--- Name: pedidos pedidos_mp_preference_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pedidos pedidos_mp_preference_id_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pedidos
@@ -1221,7 +1327,7 @@ ALTER TABLE ONLY public.pedidos
 
 
 --
--- Name: pedidos pedidos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pedidos pedidos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pedidos
@@ -1229,7 +1335,7 @@ ALTER TABLE ONLY public.pedidos
 
 
 --
--- Name: pedidos pedidos_token_unique; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pedidos pedidos_token_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pedidos
@@ -1237,7 +1343,7 @@ ALTER TABLE ONLY public.pedidos
 
 
 --
--- Name: producto_imagens producto_imagens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: producto_imagens producto_imagens_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.producto_imagens
@@ -1245,7 +1351,7 @@ ALTER TABLE ONLY public.producto_imagens
 
 
 --
--- Name: productos productos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: productos productos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.productos
@@ -1253,7 +1359,7 @@ ALTER TABLE ONLY public.productos
 
 
 --
--- Name: promocion_producto promocion_producto_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: promocion_producto promocion_producto_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.promocion_producto
@@ -1261,7 +1367,7 @@ ALTER TABLE ONLY public.promocion_producto
 
 
 --
--- Name: promocion_producto promocion_producto_promocion_id_producto_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: promocion_producto promocion_producto_promocion_id_producto_id_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.promocion_producto
@@ -1269,7 +1375,7 @@ ALTER TABLE ONLY public.promocion_producto
 
 
 --
--- Name: promociones promociones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: promociones promociones_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.promociones
@@ -1277,7 +1383,7 @@ ALTER TABLE ONLY public.promociones
 
 
 --
--- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sessions
@@ -1285,7 +1391,7 @@ ALTER TABLE ONLY public.sessions
 
 
 --
--- Name: users users_email_unique; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_email_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.users
@@ -1293,7 +1399,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.users
@@ -1301,42 +1407,42 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: cache_expiration_index; Type: INDEX; Schema: public; Owner: -
+-- Name: cache_expiration_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX cache_expiration_index ON public.cache USING btree (expiration);
 
 
 --
--- Name: cache_locks_expiration_index; Type: INDEX; Schema: public; Owner: -
+-- Name: cache_locks_expiration_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX cache_locks_expiration_index ON public.cache_locks USING btree (expiration);
 
 
 --
--- Name: jobs_queue_index; Type: INDEX; Schema: public; Owner: -
+-- Name: jobs_queue_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX jobs_queue_index ON public.jobs USING btree (queue);
 
 
 --
--- Name: sessions_last_activity_index; Type: INDEX; Schema: public; Owner: -
+-- Name: sessions_last_activity_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX sessions_last_activity_index ON public.sessions USING btree (last_activity);
 
 
 --
--- Name: sessions_user_id_index; Type: INDEX; Schema: public; Owner: -
+-- Name: sessions_user_id_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX sessions_user_id_index ON public.sessions USING btree (user_id);
 
 
 --
--- Name: cart_items cart_items_producto_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: cart_items cart_items_producto_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cart_items
@@ -1344,7 +1450,7 @@ ALTER TABLE ONLY public.cart_items
 
 
 --
--- Name: cart_items cart_items_user_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: cart_items cart_items_user_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cart_items
@@ -1352,7 +1458,7 @@ ALTER TABLE ONLY public.cart_items
 
 
 --
--- Name: pedido_items pedido_items_pedido_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pedido_items pedido_items_pedido_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pedido_items
@@ -1360,7 +1466,7 @@ ALTER TABLE ONLY public.pedido_items
 
 
 --
--- Name: pedido_items pedido_items_producto_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pedido_items pedido_items_producto_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pedido_items
@@ -1368,7 +1474,7 @@ ALTER TABLE ONLY public.pedido_items
 
 
 --
--- Name: pedidos pedidos_user_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pedidos pedidos_user_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pedidos
@@ -1376,7 +1482,7 @@ ALTER TABLE ONLY public.pedidos
 
 
 --
--- Name: producto_imagens producto_imagens_producto_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: producto_imagens producto_imagens_producto_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.producto_imagens
@@ -1384,7 +1490,7 @@ ALTER TABLE ONLY public.producto_imagens
 
 
 --
--- Name: productos productos_categoria_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: productos productos_categoria_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.productos
@@ -1392,7 +1498,7 @@ ALTER TABLE ONLY public.productos
 
 
 --
--- Name: productos productos_etapa_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: productos productos_etapa_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.productos
@@ -1400,7 +1506,7 @@ ALTER TABLE ONLY public.productos
 
 
 --
--- Name: productos productos_marca_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: productos productos_marca_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.productos
@@ -1408,7 +1514,7 @@ ALTER TABLE ONLY public.productos
 
 
 --
--- Name: promocion_producto promocion_producto_producto_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: promocion_producto promocion_producto_producto_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.promocion_producto
@@ -1416,7 +1522,7 @@ ALTER TABLE ONLY public.promocion_producto
 
 
 --
--- Name: promocion_producto promocion_producto_promocion_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: promocion_producto promocion_producto_promocion_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.promocion_producto
@@ -1427,5 +1533,5 @@ ALTER TABLE ONLY public.promocion_producto
 -- PostgreSQL database dump complete
 --
 
-\unrestrict LY3sLvSK1elX6iB9hidUb1JdM2ZDla7yTCfhI8TeU0smrtDe1OUGP1MhLBTsSLh
+\unrestrict miEOhzflqnHjRKud1ehUoX8miVxwUldvNhFAblp4YbUgw7j34xxzJdhP02AUBFU
 
