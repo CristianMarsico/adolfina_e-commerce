@@ -52,9 +52,10 @@ class CheckoutController extends Controller
         $descuentoTotal = 0;
         foreach ($cart as $item) {
             $producto = $productos->get($item['producto_id']);
-            $precio = $item['precio'];
-            $subtotal = $precio * $item['cantidad'];
-            $total += $subtotal;
+            $precioEfectivo = $producto && $producto->precio_oferta && $producto->precio_oferta < $item['precio']
+                ? $producto->precio_oferta
+                : $item['precio'];
+            $total += $precioEfectivo * $item['cantidad'];
 
             if ($producto && $producto->precio_oferta && $producto->precio_oferta < $item['precio']) {
                 $descuentoTotal += ($item['precio'] - $producto->precio_oferta) * $item['cantidad'];

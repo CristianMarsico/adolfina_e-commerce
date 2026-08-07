@@ -53,53 +53,85 @@ class CartController extends Controller
         ]);
 
         $producto = Producto::findOrFail($request->producto_id);
+        $cantidadSolicitada = (int) $request->cantidad;
+        $stock = (int) $producto->stock;
+
+        if ($stock < 1) {
+            return redirect()->back()->with('error', "{$producto->nombre} no tiene stock disponible.");
+        }
 
         if (auth()->check() && !auth()->user()->is_admin) {
             $existing = CartItem::where('user_id', auth()->id())
                 ->where('producto_id', $producto->id)
                 ->first();
+            $existentes = $existing ? (int) $existing->cantidad : 0;
+        } else {
+            $key = (string) $producto->id;
+            $cart = session()->get('cart', []);
+            $existentes = isset($cart[$key]) ? (int) $cart[$key]['cantidad'] : 0;
+        }
 
+        $disponibles = max(0, $stock - $existentes);
+
+        if ($disponibles < 1) {
+            return redirect()->back()->with('error', "Ya tenés el máximo disponible de {$producto->nombre} ({$stock}).");
+        }
+
+        $cantidad = min($cantidadSolicitada, $disponibles);
+        $capped = $cantidad < $cantidadSolicitada;
+
+        if (auth()->check() && !auth()->user()->is_admin) {
             if ($existing) {
-                $existing->increment('cantidad', (int) $request->cantidad);
+                $existing->increment('cantidad', $cantidad);
             } else {
                 CartItem::create([
                     'user_id' => auth()->id(),
                     'producto_id' => $producto->id,
-                    'cantidad' => (int) $request->cantidad,
+                    'cantidad' => $cantidad,
                 ]);
             }
-
-            return redirect()->back()->with('success', 'Producto agregado al carrito');
-        }
-
-        $cart = session()->get('cart', []);
-
-        $cartItem = [
-            'producto_id' => $producto->id,
-            'nombre' => $producto->nombre,
-            'precio' => (float) $producto->precio,
-            'cantidad' => (int) $request->cantidad,
-        ];
-
-        $key = (string) $producto->id;
-
-        if (isset($cart[$key])) {
-            $cart[$key]['cantidad'] += (int) $request->cantidad;
         } else {
-            $cart[$key] = $cartItem;
+            $cartItem = [
+                'producto_id' => $producto->id,
+                'nombre' => $producto->nombre,
+                'precio' => (float) $producto->precio,
+                'cantidad' => $cantidad,
+            ];
+
+            if (isset($cart[$key])) {
+                $cart[$key]['cantidad'] += $cantidad;
+            } else {
+                $cart[$key] = $cartItem;
+            }
+
+            session()->put('cart', $cart);
         }
 
-        session()->put('cart', $cart);
+        if ($capped) {
+            return redirect()->back()->with('error', "Solo quedan {$disponibles} disponibles de {$producto->nombre}. Se agregaron {$cantidad}.");
+        }
 
         return redirect()->back()->with('success', 'Producto agregado al carrito');
     }
 
     public function update(Request $request, $key)
     {
+        $producto = Producto::findOrFail($key);
+        $stock = (int) $producto->stock;
+        $cantidad = max(1, (int) $request->cantidad);
+
         if (auth()->check() && !auth()->user()->is_admin) {
+            if ($stock < 1) {
+                CartItem::where('user_id', auth()->id())
+                    ->where('producto_id', $key)
+                    ->delete();
+
+                return redirect()->route('cart.index')->with('error', "{$producto->nombre} ya no tiene stock.");
+            }
+
             CartItem::where('user_id', auth()->id())
                 ->where('producto_id', $key)
-                ->update(['cantidad' => max(1, (int) $request->cantidad)]);
+                ->update(['cantidad' => min($cantidad, $stock)]);
 
             return redirect()->route('cart.index');
         }
@@ -107,7 +139,14 @@ class CartController extends Controller
         $cart = session()->get('cart', []);
 
         if (isset($cart[$key])) {
-            $cart[$key]['cantidad'] = max(1, (int) $request->cantidad);
+            if ($stock < 1) {
+                unset($cart[$key]);
+                session()->put('cart', $cart);
+
+                return redirect()->route('cart.index')->with('error', "{$producto->nombre} ya no tiene stock.");
+            }
+
+            $cart[$key]['cantidad'] = min($cantidad, $stock);
             session()->put('cart', $cart);
         }
 
