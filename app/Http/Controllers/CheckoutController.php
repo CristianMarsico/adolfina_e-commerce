@@ -193,18 +193,24 @@ class CheckoutController extends Controller
             $order = $mp->obtenerOrdenQR($pedido->mp_order_id);
 
             if ($order) {
-                $payments = $order['payments'] ?? [];
-
                 $approved = false;
                 $approvedId = null;
+
+                if (($order['status'] ?? null) === 'processed' && ($order['status_detail'] ?? null) === 'accredited') {
+                    $approved = true;
+                }
+
+                $payments = $order['transactions']['payments'] ?? $order['payments'] ?? [];
+
                 $terminal = count($payments) > 0;
 
                 foreach ($payments as $payment) {
                     $status = $payment['status'] ?? null;
+                    $detail = $payment['status_detail'] ?? null;
 
-                    if ($status === 'approved') {
+                    if ($status === 'approved' || ($status === 'processed' && $detail === 'accredited')) {
                         $approved = true;
-                        $approvedId = $payment['id'] ?? null;
+                        $approvedId = $payment['reference_id'] ?? $payment['id'] ?? $approvedId;
                     }
 
                     if ($status !== 'rejected' && $status !== 'cancelled' && $status !== 'refunded' && $status !== 'charged_back') {
@@ -213,7 +219,7 @@ class CheckoutController extends Controller
                 }
 
                 if ($approved) {
-                    $this->marcarPagado($pedido, (string) $approvedId, $pedido->mp_order_id);
+                    $this->marcarPagado($pedido, (string) ($approvedId ?? $order['id']), $pedido->mp_order_id);
                 } elseif ($terminal) {
                     $pedido->update([
                         'mp_status' => 'rejected',

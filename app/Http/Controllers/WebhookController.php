@@ -98,18 +98,24 @@ class WebhookController extends Controller
             return;
         }
 
-        $payments = $order['payments'] ?? [];
-
         $approved = false;
         $approvedId = null;
+
+        if (($order['status'] ?? null) === 'processed' && ($order['status_detail'] ?? null) === 'accredited') {
+            $approved = true;
+        }
+
+        $payments = $order['transactions']['payments'] ?? $order['payments'] ?? [];
+
         $terminal = count($payments) > 0;
 
         foreach ($payments as $payment) {
             $status = $payment['status'] ?? null;
+            $detail = $payment['status_detail'] ?? null;
 
-            if ($status === 'approved') {
+            if ($status === 'approved' || ($status === 'processed' && $detail === 'accredited')) {
                 $approved = true;
-                $approvedId = $payment['id'] ?? null;
+                $approvedId = $payment['reference_id'] ?? $payment['id'] ?? $approvedId;
             }
 
             if ($status !== 'rejected' && $status !== 'cancelled' && $status !== 'refunded' && $status !== 'charged_back') {
@@ -118,7 +124,7 @@ class WebhookController extends Controller
         }
 
         if ($approved) {
-            $this->marcarPagado($pedido, (string) $approvedId, $orderId);
+            $this->marcarPagado($pedido, (string) ($approvedId ?? $order['id']), $orderId);
         } elseif ($terminal) {
             $pedido->update([
                 'mp_status' => 'rejected',
