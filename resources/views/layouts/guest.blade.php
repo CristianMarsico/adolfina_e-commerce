@@ -18,7 +18,7 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gradient-to-br from-sky-50 via-white to-blue-50">
             <div class="mb-6">
                 <a href="{{ route('home') }}" class="flex flex-col items-center gap-2">
-                    <img src="{{ asset('images/logo.jpg') }}" alt="{{ $configuracion->nombre_negocio ?? 'Pañalera' }}" class="h-20 w-20 rounded-full object-cover ring-4 ring-sky-100 shadow">
+                    <img src="{{ asset('images/logo.jpg') }}" alt="{{ $configuracion->nombre_negocio ?? 'Pañalera' }}" class="h-24 w-24 rounded-full object-cover ring-4 ring-sky-100 shadow">
                     <span class="text-2xl font-bold text-sky-600">{{ $configuracion->nombre_negocio ?? 'Pañalera' }}</span>
                 </a>
             </div>

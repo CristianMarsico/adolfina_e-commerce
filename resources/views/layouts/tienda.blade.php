@@ -19,7 +19,7 @@
                 <div class="flex items-center justify-between h-16 md:h-20">
                     {{-- Logo --}}
                     <a href="{{ route('home') }}" class="flex items-center gap-2 shrink-0">
-                        <img src="{{ asset('images/logo.jpg') }}" alt="{{ $configuracion->nombre_negocio ?? 'Pañalera' }}" class="h-12 w-12 rounded-full object-cover ring-2 ring-sky-100 shadow-sm">
+                        <img src="{{ asset('images/logo.jpg') }}" alt="{{ $configuracion->nombre_negocio ?? 'Pañalera' }}" class="h-12 w-12 md:h-16 md:w-16 rounded-full object-cover ring-2 ring-sky-100 shadow-sm">
                         <span class="text-xl md:text-2xl font-bold text-sky-600">{{ $configuracion->nombre_negocio ?? 'Pañalera' }}</span>
                     </a>
 
