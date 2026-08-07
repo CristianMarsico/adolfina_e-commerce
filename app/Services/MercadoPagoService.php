@@ -51,7 +51,7 @@ class MercadoPagoService
         }
     }
 
-    public function crearPedidoQR(array $items, float $total, string $externalReference, string $notificationUrl): array
+    public function crearPedidoQR(array $items, float $total, string $externalReference): array
     {
         $externalPosId = config('services.mercadopago.external_pos_id');
         if (!$externalPosId) {
@@ -87,10 +87,6 @@ class MercadoPagoService
             ],
             'items' => $mpItems,
         ];
-
-        if ($notificationUrl && !str_contains($notificationUrl, 'localhost') && !str_contains($notificationUrl, '127.0.0.1')) {
-            $request['notification_url'] = $notificationUrl;
-        }
 
         $response = Http::withToken($this->accessToken)
             ->withHeaders(['X-Idempotency-Key' => (string) $externalReference . '_' . time()])

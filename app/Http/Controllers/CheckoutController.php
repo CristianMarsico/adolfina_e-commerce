@@ -162,7 +162,6 @@ class CheckoutController extends Controller
                 $mpItems,
                 $total,
                 (string) $pedido->id,
-                route('webhook.mp'),
             );
 
             $pedido->update([

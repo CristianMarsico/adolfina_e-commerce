@@ -23,7 +23,7 @@ class WebhookController extends Controller
             }
         }
 
-        $paymentId = $request->input('data.id') ?? $request->input('id');
+        $paymentId = $request->input('data.id') ?? $request->query('data_id') ?? $request->input('id');
         $topic = $request->input('type') ?? $request->input('topic');
 
         if (!$paymentId) {
@@ -203,14 +203,24 @@ class WebhookController extends Controller
             return false;
         }
 
-        if (abs(time() - (int) $ts) > 300) {
+        if (abs((int) round(microtime(true) * 1000) - (int) $ts) > 300000) {
             return false;
         }
 
-        $body = $request->getContent();
-        $dataId = $request->input('data.id') ?? $request->input('id') ?? '';
-        $payload = "{$dataId}|{$ts}|{$body}";
-        $expected = hash_hmac('sha256', $payload, $secret);
+        $dataId = (string) $request->query('data_id', '');
+        $requestId = (string) $request->header('x-request-id', '');
+
+        $manifestParts = [];
+        if ($dataId !== '') {
+            $manifestParts[] = 'id:' . strtolower($dataId);
+        }
+        if ($requestId !== '') {
+            $manifestParts[] = 'request-id:' . $requestId;
+        }
+        $manifestParts[] = 'ts:' . $ts;
+        $manifest = implode(';', $manifestParts) . ';';
+
+        $expected = hash_hmac('sha256', $manifest, $secret);
 
         return hash_equals($expected, $v1);
     }
